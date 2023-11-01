@@ -1,0 +1,72 @@
+{% extends "pagina/base.html" %}
+{% load static %}
+
+
+{% block body %}
+<!-- home section starts  -->
+
+<section class="home" id="home">
+
+   <div class="content">
+      <img data-aos="fade-up" data-aos-delay="150" src="{% static '/images/tacos-baner.png' %}" alt="">
+      <h3 data-aos="fade-up" data-aos-delay="300">¡Sabor auténtico, pasión en cada bocado!</h3>
+      <p data-aos="fade-up" data-aos-delay="450">Local de comida TEX-MEX <br>
+         No te quedes con las ganas y disfruta de una exquisita comida elaborada con ingredientes frescos y recetas tradicionales</p>
+     
+   </div>
+
+</section>
+
+<!-- home section ends -->
+
+<!-- contact section starts  -->
+
+<section class="contact">
+
+   <div class="heading">
+      <img src="{% static '/images/title-img.png' %}" alt="">
+      <h3>Contáctanos</h3>
+   </div>
+
+   <div class="row">
+
+      <iframe class="map" id="mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.372412896262!2d-79.96455462985229!3d-3.2573287336768844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x90330e576f7f3e61%3A0x37c2cbbcc470f431!2sTaco%20Home!5e0!3m2!1ses!2sec!4v1698289429235!5m2!1ses!2sec" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="form">
+
+         <div class="icons-container">
+
+            <div class="icons" data-aos="fade-up" data-aos-delay="150">
+               <i class="fas fa-map"></i>
+               <h3>Dirección :</h3>
+               <p>Ayacucho, entre 25 de Junio & Sucre, 070102</p> </div>
+
+            <div class="icons" data-aos="fade-up" data-aos-delay="300">
+               <i class="fas fa-envelope"></i>
+               <h3>Email :</h3>
+               <p>tacohome2011@gmail.com</p>
+            </div>
+
+            <div class="icons" data-aos="fade-up" data-aos-delay="450">
+               <i class="fas fa-phone"></i>
+               <h3>Teléfonos :</h3>
+               <p>+593 963410295 </p>
+            </div>
+            
+         </div>
+
+         <form action="">
+            <input data-aos="fade-up" data-aos-delay="150" type="text" placeholder="Nombre completo" class="box">
+            <input data-aos="fade-up" data-aos-delay="300" type="email" placeholder="email" class="box">
+            <input data-aos="fade-up" data-aos-delay="450" type="text" placeholder="Teléfono" class="box">
+            <textarea data-aos="fade-up" data-aos-delay="600" name="" placeholder="Mensaje" class="box" id="" cols="30" rows="10"></textarea>
+            <input data-aos="fade-up" data-aos-delay="750" type="submit" value="Enviar" class="btn">
+         </form>
+
+      </div>
+
+   </div>
+
+</section>
+
+<!-- contact section ends -->
+{% endblock %}

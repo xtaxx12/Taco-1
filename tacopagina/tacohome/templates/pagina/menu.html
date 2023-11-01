@@ -1,0 +1,58 @@
+{% extends "pagina/base.html" %}
+{% load static %}
+
+{% block body %}
+<section class="menu" id="menu">
+   <div class="heading">
+      <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+      <img src="{% static 'images/title-img.png' %}" alt="">
+      <h3>Menu</h3>
+   </div>
+
+   <div class="box-container">
+      {% for producto in productos %}
+      <div class="box" data-aos="fade-up" data-aos-delay="150">
+         <img style="width: 100%; height: auto;"
+         src="{% if producto.imagen %}{{ producto.imagen.url }}{% else %}{% static 'img/2.jpeg' %}{% endif %}"
+         class="card-img-top"
+         alt="Imagen del producto"
+       />
+         <div class="content">
+            <h3>{{ producto.nombre }}</h3>
+            <div class="price">${{ producto.precio }}</div>
+            <span>
+               <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#myModal{{ producto.id }}">
+                  Ver Descripción
+               </button>
+            </span>
+            <div class="modal fade" id="myModal{{ producto.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel{{ producto.id }}" aria-hidden="true">
+               <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title"> Producto: <strong>{{ producto.nombre }}</strong></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true"></span>
+                        </button>
+                     </div>
+                     <div class="modal-body">
+                        <ul class="list-unstyled">
+                           <li>Imagen : <strong><img src="{{ producto.imagen.url }}" /></strong></li>
+                           <li>Nombre : <strong>{{ producto.nombre }}</strong></li>
+                           <li>Precio : <strong>${{ producto.precio }}</strong></li>
+                           <li>Descripción : <strong>{{ producto.descripcion }}</strong></li>
+                        </ul>
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <a href="#" class="btn">Añadir al Carrito</a>
+         </div>
+      </div>
+      {% endfor %}
+   </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" ></script>
+{% endblock %}

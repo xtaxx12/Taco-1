@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tacopagina</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">>
+
+</head>
+<body>
+
+<!-- header section starts  -->
+
+<header class="header">
+
+   <div id="menu-btn" class="fas fa-bars icons"></div>
+   <div id="search-btn" class="fas fasearch icons"></div>
+
+   <nav class="navbar">
+      <a href="{% url 'index' %}">Inicio</a>
+      <a href="{% url 'menu' %}">Menú</a>
+   </nav>
+
+   <a href="#" class="fas fa-shopping-cart icons"></a>
+
+   
+
+</header>
+
+<!-- header section ends  -->
+
+<!-- Contenido  -->
+{% block body %}
+
+ 
+{% endblock %}
+<!-- fin del Contenido  -->
+
+<!-- footer section starts  -->
+
+<section class="footer">
+
+   <p class="credit"> Creado por <span><a href="#"> ᵃ </a></span></p><br>
+
+</section>
+
+<!-- footer section ends -->
+
+<!-- custom js file link      -->
+<script src="js/script.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+<script>
+
+AOS.init({
+   duration: 800,
+});
+
+</script>
+    
+</body>
+</html>
+
+<style>
+   body {
+   background: url("{% static '/images/background.jpeg' %}");
+   background-attachment: fixed;
+   background-position: center;
+   overflow-x: hidden;
+   }
+
+   .home {
+   margin-top: 7rem;
+   background: url("{% static '/images/home-bg.png' %}") no-repeat;
+   filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.50));
+   background-size: cover;
+   background-position: center;
+   }
+</style>

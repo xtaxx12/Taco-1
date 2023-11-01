@@ -1,0 +1,50 @@
+{% load static %}
+<style>
+body {
+   background: url("{% static '/images/background.jpeg' %}");
+   background-attachment: fixed;
+   background-position: center;
+   overflow-x: hidden;
+   }
+
+</style>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tacopagina</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static '/css/style-login.css' %}">>
+
+</head>
+<body>
+    <section class="login">
+        <div class="login-cont">
+            <form action="index.html" method="#">
+                <h2>Iniciar sesión</h2>
+                <div class="input-group">
+                  <label for="email">Usuario</label>
+                  <input type="text" name="text" id="text" required/>
+                  <label for="contraseña">Contraseña</label>
+                  <input type="password" name="password" id="password" required/>
+                  <div>
+                    <input type="submit" value="Enviar" class="btn" />
+                  </div>
+                </div>
+              </form>
+        </div>
+    </section>
+
+    <script src="js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+</body>
+</html>
