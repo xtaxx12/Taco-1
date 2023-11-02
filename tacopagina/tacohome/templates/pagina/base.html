@@ -9,33 +9,30 @@
     <title>tacopagina</title>
 
     <!-- font awesome cdn link  -->
+    <link rel="icon" href="{% static '/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="{% static '/css/style.css' %}">>
 
 </head>
-<body>
+<body>  
+   <header class="header">
 
-<!-- header section starts  -->
+      <div id="menu-btn" class="fas fa-bars icons"></div>
+      <div id="search-btn" class="fas fasearch icons"></div>
 
-<header class="header">
+      <nav class="navbar">
+         <a href="{% url 'index' %}">Inicio</a>
+         <a href="{% url 'menu' %}">Menú</a>
+      </nav>
 
-   <div id="menu-btn" class="fas fa-bars icons"></div>
-   <div id="search-btn" class="fas fasearch icons"></div>
+      <a href="#" class="fas fa-shopping-cart icons"></a>
 
-   <nav class="navbar">
-      <a href="{% url 'index' %}">Inicio</a>
-      <a href="{% url 'menu' %}">Menú</a>
-   </nav>
+      
 
-   <a href="#" class="fas fa-shopping-cart icons"></a>
-
-   
-
-</header>
+   </header>
 
 <!-- header section ends  -->
 
@@ -57,7 +54,7 @@
 <!-- footer section ends -->
 
 <!-- custom js file link      -->
-<script src="js/script.js"></script>
+<script src="{% static '/js/script.js' %}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
@@ -78,6 +75,10 @@ AOS.init({
    background-attachment: fixed;
    background-position: center;
    overflow-x: hidden;
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh; /* Asegura que el cuerpo ocupe al menos el 100% del alto de la ventana */
+   margin: 0;
    }
 
    .home {

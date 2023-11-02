@@ -1,4 +1,3 @@
-@import url("fontawesome-all.min.css");
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;400;500;600&display=swap");
 :root{
   --color-verde-1:#c4e707;
@@ -50,7 +49,7 @@ section {
 
 .heading {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 0.5rem;
   padding: 80px;
 }
 
@@ -261,6 +260,7 @@ section {
 
 .menu .box-container .box img {
   height: 25rem;
+  border-radius: 5%;
 }
 
 .menu .box-container .box .content {
@@ -590,10 +590,16 @@ section {
 }
 
 .box .content .description{
+  background-color: #00000000;
   color: var(--color-verde-1);
   font-size: 2rem;
   display: block;
-  align-content: center;
+  margin: 0 auto; 
+}
+
+.box .content span{
+  display: block;
+  text-align: center;
 }
 
 .box .content .description:hover{
@@ -645,7 +651,7 @@ section {
     top: 99%;
     left: 0;
     right: 0;
-    background: #000;
+    background: var(--color-morado-1);
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
             clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
   }
@@ -654,6 +660,7 @@ section {
             clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
   .header .navbar a {
+    color: var(--color-verde-1);
     display: block;
     margin: 3rem 2rem;
   }

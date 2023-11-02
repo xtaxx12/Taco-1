@@ -24,3 +24,19 @@ window.onscroll = () =>{
    menuBtn.classList.remove('fa-times');
    navbar.classList.remove('active');
 }
+function openModal(modalId) {
+   var modal = document.getElementById(modalId);
+   modal.style.display = "block";
+}
+
+function closeModal(modalId) {
+   var modal = document.getElementById(modalId);
+   modal.style.display = "none";
+}
+
+// Cierra el modal si el usuario hace clic fuera del contenido
+window.onclick = function(event) {
+   if (event.target.className === "modal") {
+       event.target.style.display = "none";
+   }
+};
