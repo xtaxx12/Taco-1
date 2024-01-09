@@ -3,11 +3,13 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+
 urlpatterns = [
-    path("", views.index, name="index"),
+    path('index/', views.index, name='index'),
     path("base/", views.base, name="base"),
     path("menu/", views.menu, name="menu"),
-    path("login/", views.login, name="login"),
+    path("login/", views.custom_login, name="login"),
+    path('register/', views.register, name='register'),
     path("enviado_correctamente", views.enviar_correo, name="enviar_correo"),
 ]
 

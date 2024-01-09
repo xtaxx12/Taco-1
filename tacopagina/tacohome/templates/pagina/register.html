@@ -1,0 +1,113 @@
+{% load static %}
+<link rel="icon" href="{% static '/favicon.ico' %}" type="image/x-icon">
+<style>
+body {
+   background: url("{% static '/images/background.jpeg' %}");
+   background-attachment: fixed;
+   background-position: center;
+   overflow-x: hidden;
+}
+
+</style>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tacopagina</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static '/css/style-register.css' %}">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url("{% static '/images/background.jpeg' %}");
+        }
+
+        .register {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .register-cont {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Estilo para el mensaje de error */
+        .error-message {
+            color: #ff0000; /* Color rojo para resaltar el mensaje de error */
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <section class="register">
+        <div class="register-cont">
+            <form method="post">
+                {% csrf_token %}
+                <h2>Registro</h2>
+                <label for="username">Usuario</label>
+                <input type="text" name="username" id="username" required/>
+                <label for="password1">Contraseña</label>
+                <input type="password" name="password1" id="password1" required/>
+                <label for="password2">Confirmar Contraseña</label>
+                <input type="password" name="password2" id="password2" required/>
+                <div>
+                    <input type="submit" value="Registrarse" class="btn" />
+                </div>
+                {% if error_message %}
+                    <p class="error-message">{{ error_message }}</p>
+                {% endif %}
+            </form>
+        </div>
+    </section>
+
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+</body>
+</html>
