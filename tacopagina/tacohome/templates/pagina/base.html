@@ -9,12 +9,15 @@
     <title>tacopagina</title>
 
     <!-- font awesome cdn link  -->
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
     <link rel="icon" href="{% static '/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
     <!-- custom css file link  -->
-    <link rel="stylesheet" href="{% static '/css/style.css' %}">>
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
 
 </head>
 <body>  
@@ -29,41 +32,47 @@
       </nav>
 
       <a href="#" class="fas fa-shopping-cart icons"></a>
-
       
-
+      {% if user.is_authenticated %}
+      <form class="d-flex" method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{% url 'login' %}">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Cerrar sesión <i
+          class="fa-solid fa-right-from-bracket"></i></button>
+      </form>
+    {% else %}
+      <form class="d-flex" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+          <i class="fa-solid fa-user fa-beat fa-lg"></i> Login
+        </button>
+      </form>
+    {% endif %}
+      
    </header>
 
 <!-- header section ends  -->
 
 <!-- Contenido  -->
 {% block body %}
-
  
 {% endblock %}
 <!-- fin del Contenido  -->
 
 <!-- footer section starts  -->
-
 <section class="footer">
-
-   <p class="credit"> Creado por <span><a href="#"> ᵃ </a></span></p><br>
-
+   <p class="credit"> Creado por <span><a href="#"> J </a></span></p><br>
 </section>
-
 <!-- footer section ends -->
 
 <!-- custom js file link      -->
 <script src="{% static '/js/script.js' %}"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
 <script>
-
 AOS.init({
    duration: 800,
 });
-
 </script>
     
 </body>

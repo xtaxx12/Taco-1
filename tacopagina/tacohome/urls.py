@@ -6,11 +6,11 @@ from django.conf import settings
 
 urlpatterns = [
     path('index/', views.index, name='index'),
-    path("base/", views.base, name="base"),
     path("menu/", views.menu, name="menu"),
-    path("login/", views.custom_login, name="login"),
+    path("", views.custom_login, name="login"),
+    path('logout/', views.logout_view, name='logout'),
     path('register/', views.register, name='register'),
-    path("enviado_correctamente", views.enviar_correo, name="enviar_correo"),
+    path("enviado_correctamente/", views.enviar_correo, name="enviar_correo"),
 ]
 
 """urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) es una configuración necesaria para 

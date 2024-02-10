@@ -16,7 +16,7 @@ body {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tacopagina</title>
+    <title>Tacopagina</title>
 
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -37,7 +37,7 @@ body {
 <body>
     <section class="login">
         <div class="login-cont">
-            <form action="{% url 'login' %}" method="post">
+            <form action="{% url 'login' %}" method="POST">
                 {% csrf_token %}
                 <h2>Iniciar sesión</h2>
                 {% if error_message %}
@@ -45,7 +45,7 @@ body {
                 {% endif %}
                 <div class="input-group">
                     <label for="username">Usuario</label>
-                    <input type="text" name="username" id="username" required/>
+                    <input type="text" name="username" id="username" required autocomplete="off" />
                     <label for="password">Contraseña</label>
                     <input type="password" name="password" id="password" required/>
                     <div>
