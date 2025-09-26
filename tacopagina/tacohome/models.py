@@ -29,8 +29,8 @@ class Producto(models.Model):
     descripcion = models.TextField(max_length=1000)
     disponible = models.BooleanField(default=True)
     destacado = models.BooleanField(default=False)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     class Meta:
         verbose_name = "Producto"
@@ -58,8 +58,8 @@ class UserProfile(models.Model):
     telefono = models.CharField(max_length=15, blank=True, null=True)
     direccion = models.TextField(blank=True, null=True)
     fecha_nacimiento = models.DateField(blank=True, null=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     class Meta:
         verbose_name = "Perfil de Usuario"
@@ -75,7 +75,7 @@ class ContactMessage(models.Model):
     telefono = models.CharField(max_length=15, blank=True, null=True)
     mensaje = models.TextField()
     leido = models.BooleanField(default=False)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     class Meta:
         verbose_name = "Mensaje de Contacto"
