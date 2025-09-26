@@ -1,72 +1,199 @@
 {% extends "pagina/base.html" %}
 {% load static %}
 
+{% block title %}Inicio - Taco Home{% endblock %}
 
 {% block body %}
-<!-- home section starts  -->
-
-<section class="home" id="home">
-
-   <div class="content">
-      <img data-aos="fade-up" data-aos-delay="150" src="{% static '/images/tacos-baner.png' %}" alt="">
-      <h3 data-aos="fade-up" data-aos-delay="300">¡Sabor auténtico, pasión en cada bocado!</h3>
-      <p data-aos="fade-up" data-aos-delay="450">Local de comida TEX-MEX <br>
-         No te quedes con las ganas y disfruta de una exquisita comida elaborada con ingredientes frescos y recetas tradicionales</p>
-     
+<!-- Hero Section -->
+<section class="hero" id="home">
+   <div class="hero-content">
+      <div class="hero-text" data-aos="fade-right" data-aos-delay="150">
+         <h1>¡Sabor auténtico, pasión en cada bocado!</h1>
+         <p>Local de comida TEX-MEX con ingredientes frescos y recetas tradicionales. 
+            No te quedes con las ganas y disfruta de una experiencia culinaria única.</p>
+         <div class="hero-buttons">
+            <a href="{% url 'menu' %}" class="btn-primary">
+               <i class="fas fa-utensils"></i> Ver Menú
+            </a>
+            <a href="#contact" class="btn-secondary">
+               <i class="fas fa-phone"></i> Contactar
+            </a>
+         </div>
+      </div>
+      <div class="hero-image" data-aos="fade-left" data-aos-delay="300">
+         <img src="{% static 'images/tacos-baner.png' %}" alt="Deliciosos tacos de Taco Home" loading="lazy">
+      </div>
    </div>
-
 </section>
 
-<!-- home section ends -->
-
-<!-- contact section starts  -->
-
-<section class="contact">
-
-   <div class="heading">
-      <img src="{% static '/images/title-img.png' %}" alt="">
-      <h3>Contáctanos</h3>
-   </div>
-
-   <div class="row">
-
-      <iframe class="map" id="mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.372412896262!2d-79.96455462985229!3d-3.2573287336768844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x90330e576f7f3e61%3A0x37c2cbbcc470f431!2sTaco%20Home!5e0!3m2!1ses!2sec!4v1698289429235!5m2!1ses!2sec" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      <div class="form">
-
-         <div class="icons-container">
-
-            <div class="icons" data-aos="fade-up" data-aos-delay="150">
-               <i class="fas fa-map"></i>
-               <h3>Dirección :</h3>
-               <p>Ayacucho, entre 25 de Junio & Sucre, 070102</p> </div>
-
-            <div class="icons" data-aos="fade-up" data-aos-delay="300">
-               <i class="fas fa-envelope"></i>
-               <h3>Email :</h3>
-               <p>tacohome2011@gmail.com</p>
+<!-- Features Section -->
+<section class="features">
+   <div class="container">
+      <div class="features-grid">
+         <div class="feature-card" data-aos="fade-up" data-aos-delay="150">
+            <div class="feature-icon">
+               <i class="fas fa-leaf"></i>
             </div>
-
-            <div class="icons" data-aos="fade-up" data-aos-delay="450">
-               <i class="fas fa-phone"></i>
-               <h3>Teléfonos :</h3>
-               <p>+593 963410295 </p>
-            </div>
-            
+            <h3>Ingredientes Frescos</h3>
+            <p>Utilizamos solo los ingredientes más frescos y de la mejor calidad para nuestros platillos.</p>
          </div>
+         
+         <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="feature-icon">
+               <i class="fas fa-clock"></i>
+            </div>
+            <h3>Servicio Rápido</h3>
+            <p>Preparamos tus platillos favoritos en tiempo récord sin comprometer la calidad.</p>
+         </div>
+         
+         <div class="feature-card" data-aos="fade-up" data-aos-delay="450">
+            <div class="feature-icon">
+               <i class="fas fa-heart"></i>
+            </div>
+            <h3>Recetas Tradicionales</h3>
+            <p>Nuestras recetas han sido perfeccionadas durante años para ofrecerte el sabor más auténtico.</p>
+         </div>
+      </div>
+   </div>
+</section>
 
-         <form action="">
-            <input data-aos="fade-up" data-aos-delay="150" type="text" placeholder="Nombre completo" class="box">
-            <input data-aos="fade-up" data-aos-delay="300" type="email" placeholder="email" class="box">
-            <input data-aos="fade-up" data-aos-delay="450" type="text" placeholder="Teléfono" class="box">
-            <textarea data-aos="fade-up" data-aos-delay="600" name="" placeholder="Mensaje" class="box" id="" cols="30" rows="10"></textarea>
-            <input data-aos="fade-up" data-aos-delay="750" type="submit" value="Enviar" class="btn">
-         </form>
-
+<!-- Contact Section -->
+<section class="contact" id="contact">
+   <div class="container">
+      <div class="heading" data-aos="fade-up">
+         <img src="{% static 'images/title-img.png' %}" alt="Decoración" loading="lazy">
+         <h2>Contáctanos</h2>
+         <p>¿Tienes alguna pregunta o quieres hacer una reserva? ¡Estamos aquí para ayudarte!</p>
       </div>
 
-   </div>
+      <div class="contact-content">
+         <div class="contact-info" data-aos="fade-right" data-aos-delay="150">
+            <div class="info-card">
+               <div class="info-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+               </div>
+               <div class="info-content">
+                  <h4>Dirección</h4>
+                  <p>Ayacucho, entre 25 de Junio & Sucre<br>070102, Ecuador</p>
+               </div>
+            </div>
 
+            <div class="info-card">
+               <div class="info-icon">
+                  <i class="fas fa-phone"></i>
+               </div>
+               <div class="info-content">
+                  <h4>Teléfono</h4>
+                  <p><a href="tel:+593963410295">+593 963410295</a></p>
+               </div>
+            </div>
+
+            <div class="info-card">
+               <div class="info-icon">
+                  <i class="fas fa-envelope"></i>
+               </div>
+               <div class="info-content">
+                  <h4>Email</h4>
+                  <p><a href="mailto:tacohome2011@gmail.com">tacohome2011@gmail.com</a></p>
+               </div>
+            </div>
+
+            <div class="info-card">
+               <div class="info-icon">
+                  <i class="fas fa-clock"></i>
+               </div>
+               <div class="info-content">
+                  <h4>Horarios</h4>
+                  <p>Lun - Vie: 11:00 AM - 10:00 PM<br>
+                     Sáb: 12:00 PM - 11:00 PM<br>
+                     Dom: 12:00 PM - 9:00 PM</p>
+               </div>
+            </div>
+         </div>
+
+         <div class="contact-form-container" data-aos="fade-left" data-aos-delay="300">
+            <form method="POST" action="{% url 'enviar_correo' %}" class="contact-form" id="contactForm">
+               {% csrf_token %}
+               <div class="form-group">
+                  <label for="nombre">Nombre completo *</label>
+                  <input type="text" id="nombre" name="nombre" required 
+                         class="form-control" placeholder="Tu nombre completo">
+               </div>
+
+               <div class="form-group">
+                  <label for="email">Email *</label>
+                  <input type="email" id="email" name="email" required 
+                         class="form-control" placeholder="tu@email.com">
+               </div>
+
+               <div class="form-group">
+                  <label for="telefono">Teléfono</label>
+                  <input type="tel" id="telefono" name="telefono" 
+                         class="form-control" placeholder="Tu número de teléfono">
+               </div>
+
+               <div class="form-group">
+                  <label for="mensaje">Mensaje *</label>
+                  <textarea id="mensaje" name="mensaje" required 
+                            class="form-control" rows="5" 
+                            placeholder="Escribe tu mensaje aquí..."></textarea>
+               </div>
+
+               <button type="submit" class="btn-primary submit-btn">
+                  <i class="fas fa-paper-plane"></i>
+                  <span>Enviar Mensaje</span>
+                  <div class="loading-spinner" style="display: none;">
+                     <i class="fas fa-spinner fa-spin"></i>
+                  </div>
+               </button>
+            </form>
+         </div>
+      </div>
+
+      <!-- Map Section -->
+      <div class="map-container" data-aos="fade-up" data-aos-delay="450">
+         <iframe class="map" 
+                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.372412896262!2d-79.96455462985229!3d-3.2573287336768844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x90330e576f7f3e61%3A0x37c2cbbcc470f431!2sTaco%20Home!5e0!3m2!1ses!2sec!4v1698289429235!5m2!1ses!2sec" 
+                 style="border:0;" 
+                 allowfullscreen="" 
+                 loading="lazy" 
+                 referrerpolicy="no-referrer-when-downgrade"
+                 title="Ubicación de Taco Home">
+         </iframe>
+      </div>
+   </div>
 </section>
 
-<!-- contact section ends -->
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+   const contactForm = document.getElementById('contactForm');
+   const submitBtn = contactForm.querySelector('.submit-btn');
+   const btnText = submitBtn.querySelector('span');
+   const btnSpinner = submitBtn.querySelector('.loading-spinner');
+
+   contactForm.addEventListener('submit', function(e) {
+      // Show loading state
+      submitBtn.disabled = true;
+      btnText.style.display = 'none';
+      btnSpinner.style.display = 'inline-block';
+   });
+
+   // Smooth scroll for anchor links
+   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+         e.preventDefault();
+         const target = document.querySelector(this.getAttribute('href'));
+         if (target) {
+            target.scrollIntoView({
+               behavior: 'smooth',
+               block: 'start'
+            });
+         }
+      });
+   });
+});
+</script>
 {% endblock %}

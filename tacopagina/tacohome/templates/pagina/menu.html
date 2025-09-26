@@ -1,137 +1,208 @@
 {% extends "pagina/base.html" %}
 {% load static %}
 
+{% block title %}Menú - Taco Home{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/menu.css' %}">
+{% endblock %}
+
 {% block body %}
-<style>
-   .descripcion {
-  background-color: #9b59b6; /* Morado */
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  padding: 10px;
-  transition: background-color 0.3s ease-in-out;
-
-  &:hover {
-    background-color: #8e44ad; /* Morado más oscuro */
-  }
-}
-
-/* Estilos del modal */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1000;
-    overflow: auto;
-}
-
-.modal-content {
-    background-color: #8936d2b6;
-    padding: 20px;
-    border-radius: 8px;
-    position: relative;
-    text-align: center;
-    margin: 1% auto; /* Ajusta el porcentaje según sea necesario para centrar verticalmente */
-    max-width: 60rem; /* Ajusta el ancho máximo según tus necesidades */
-}
-
-.close {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 4rem;
-    color: #ffffff;
-    cursor: pointer;
-}
-
-/* Estilos para la imagen dentro del modal */
-.modal-content img {
-    max-width: 80%;
-    height: auto;
-    border-radius: 5px; /* Bordes redondeados */
-}
-
-/* Estilos para el texto dentro del modal */
-.modal-content ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.modal-content ul li {
-    color: white;
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
-</style>
-<section class="menu">
-   <div class="heading">
-      <img src="{% static 'images/title-img.png' %}" alt="">
-      <h3>Tacos</h3>
-   </div>
-   <div class="box-container">
-   {% for producto in productos %}
-   {% if producto.categorias_id == 1 %}
-      <div class="box" data-aos="fade-up" data-aos-delay="150">
-         <img src="{% if producto.imagen %}{{ producto.imagen.url }}{% else %}{% static 'img/2.jpeg' %}{% endif %}" alt="Imagen del producto"/>
-         <div class="content">
-            <h3>{{ producto.nombre }}</h3>
-            <div class="price">${{ producto.precio }}</div>
-            <span>
-               <button type="button" class="description" onclick="openModal('myModal{{ producto.id }}')">Descripción</button>
-            </span>
-            <a href="#" class="btn">Añadir al Carrito</a>
-         </div>   
+<section class="menu-section">
+   <!-- Search and Filters -->
+   <div class="menu-header">
+      <div class="heading">
+         <img src="{% static 'images/title-img.png' %}" alt="Decoración" loading="lazy">
+         <h1>Nuestro Menú</h1>
       </div>
-      <div class="modal" id="myModal{{ producto.id }}">
-         <div class="modal-content">
-             <span class="close" onclick="closeModal('myModal{{ producto.id }}')">&times;</span>
-             <ul class="list-unstyled">
-               <li><strong>{{ producto.nombre }} - ${{ producto.precio }}</strong></li>  
-               <li><strong><img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}"/></strong></li>
-               <li><strong>{{ producto.descripcion }}</strong></li>
-             </ul>
-             <a href="#" class="btn">Añadir al Carrito</a>
+      
+      <div class="menu-controls">
+         <form method="GET" class="search-form">
+            <div class="search-container">
+               <input type="text" name="search" value="{{ search_query }}" 
+                      placeholder="Buscar productos..." class="search-input">
+               <button type="submit" class="search-btn" aria-label="Buscar">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+            
+            <div class="filter-container">
+               <select name="categoria" class="category-filter" onchange="this.form.submit()">
+                  <option value="">Todas las categorías</option>
+                  {% for categoria in categorias %}
+                     <option value="{{ categoria.id }}" 
+                             {% if selected_categoria == categoria.id|stringformat:"s" %}selected{% endif %}>
+                        {{ categoria.nombre }}
+                     </option>
+                  {% endfor %}
+               </select>
+            </div>
+         </form>
+      </div>
+   </div>
+
+   <!-- Products Grid -->
+   <div class="products-grid">
+      {% for producto in productos %}
+         {% if producto.disponible %}
+         <article class="product-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1|mul:100 }}">
+            <div class="product-image">
+               {% if producto.destacado %}
+                  <span class="featured-badge">Destacado</span>
+               {% endif %}
+               <img src="{% if producto.imagen %}{{ producto.imagen.url }}{% else %}{% static 'images/product-placeholder.jpg' %}{% endif %}" 
+                    alt="{{ producto.nombre }}" loading="lazy">
+            </div>
+            
+            <div class="product-content">
+               <h3 class="product-name">{{ producto.nombre }}</h3>
+               <p class="product-category">{{ producto.categorias.nombre }}</p>
+               <div class="product-price">${{ producto.precio }}</div>
+               
+               <div class="product-actions">
+                  <button type="button" class="btn-secondary" 
+                          onclick="openModal('modal{{ producto.id }}')"
+                          aria-label="Ver descripción de {{ producto.nombre }}">
+                     <i class="fas fa-info-circle"></i> Descripción
+                  </button>
+                  <button class="btn-primary add-to-cart" 
+                          data-product-id="{{ producto.id }}"
+                          aria-label="Añadir {{ producto.nombre }} al carrito">
+                     <i class="fas fa-cart-plus"></i> Añadir al Carrito
+                  </button>
+               </div>
+            </div>
+         </article>
+
+         <!-- Product Modal -->
+         <div class="modal" id="modal{{ producto.id }}" role="dialog" aria-labelledby="modal-title-{{ producto.id }}">
+            <div class="modal-overlay" onclick="closeModal('modal{{ producto.id }}')"></div>
+            <div class="modal-content">
+               <header class="modal-header">
+                  <h2 id="modal-title-{{ producto.id }}">{{ producto.nombre }}</h2>
+                  <button class="modal-close" onclick="closeModal('modal{{ producto.id }}')" 
+                          aria-label="Cerrar modal">
+                     <i class="fas fa-times"></i>
+                  </button>
+               </header>
+               
+               <div class="modal-body">
+                  <div class="modal-image">
+                     <img src="{% if producto.imagen %}{{ producto.imagen.url }}{% else %}{% static 'images/product-placeholder.jpg' %}{% endif %}" 
+                          alt="{{ producto.nombre }}" loading="lazy">
+                  </div>
+                  
+                  <div class="modal-info">
+                     <p class="modal-category">{{ producto.categorias.nombre }}</p>
+                     <p class="modal-description">{{ producto.descripcion }}</p>
+                     <div class="modal-price">${{ producto.precio }}</div>
+                  </div>
+               </div>
+               
+               <footer class="modal-footer">
+                  <button class="btn-primary add-to-cart" 
+                          data-product-id="{{ producto.id }}">
+                     <i class="fas fa-cart-plus"></i> Añadir al Carrito
+                  </button>
+               </footer>
+            </div>
          </div>
-      </div>
-   {% endif %}
-   {% endfor %}
-   </div>
-   <!-- BURRITOS-->
-   <div class="heading">
-      <img src="{% static 'images/title-img.png' %}" alt="">
-      <h3>Burritos</h3>
-   </div>
-   <div class="box-container">
-   {% for producto in productos %}
-   {% if producto.categorias_id == 2 %}
-      <div class="box" data-aos="fade-up" data-aos-delay="150">
-         <img src="{% if producto.imagen %}{{ producto.imagen.url }}{% else %}{% static 'img/2.jpeg' %}{% endif %}" alt="Imagen del producto"/>
-         <div class="content">
-            <h3>{{ producto.nombre }}</h3>
-            <div class="price">${{ producto.precio }}</div>
-            <span>
-               <button type="button" class="description" onclick="openModal('myModal{{ producto.id }}')">Descripción</button>
-            </span>
-            <a href="#" class="btn">Añadir al Carrito</a>
-         </div>   
-      </div>
-      <div class="modal" id="myModal{{ producto.id }}">
-         <div class="modal-content">
-             <span class="close" onclick="closeModal('myModal{{ producto.id }}')">&times;</span>
-             <ul class="list-unstyled">
-               <li><strong>{{ producto.nombre }} - ${{ producto.precio }}</strong></li>  
-               <li><strong><img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}"/></strong></li>
-               <li><strong>{{ producto.descripcion }}</strong></li>
-             </ul>
-             <a href="#" class="btn">Añadir al Carrito</a>
+         {% endif %}
+      {% empty %}
+         <div class="no-products">
+            <i class="fas fa-search"></i>
+            <h3>No se encontraron productos</h3>
+            <p>Intenta con otros términos de búsqueda o revisa todas las categorías.</p>
          </div>
-      </div>
-   {% endif %}
-   {% endfor %}
+      {% endfor %}
    </div>
+
+   <!-- Pagination -->
+   {% if productos.has_other_pages %}
+   <nav class="pagination-nav" aria-label="Navegación de páginas">
+      <div class="pagination">
+         {% if productos.has_previous %}
+            <a href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_categoria %}&categoria={{ selected_categoria }}{% endif %}" 
+               class="page-link" aria-label="Primera página">
+               <i class="fas fa-angle-double-left"></i>
+            </a>
+            <a href="?page={{ productos.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_categoria %}&categoria={{ selected_categoria }}{% endif %}" 
+               class="page-link" aria-label="Página anterior">
+               <i class="fas fa-angle-left"></i>
+            </a>
+         {% endif %}
+
+         <span class="page-info">
+            Página {{ productos.number }} de {{ productos.paginator.num_pages }}
+         </span>
+
+         {% if productos.has_next %}
+            <a href="?page={{ productos.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_categoria %}&categoria={{ selected_categoria }}{% endif %}" 
+               class="page-link" aria-label="Página siguiente">
+               <i class="fas fa-angle-right"></i>
+            </a>
+            <a href="?page={{ productos.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_categoria %}&categoria={{ selected_categoria }}{% endif %}" 
+               class="page-link" aria-label="Última página">
+               <i class="fas fa-angle-double-right"></i>
+            </a>
+         {% endif %}
+      </div>
+   </nav>
+   {% endif %}
 </section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Modal functionality
+function openModal(modalId) {
+   const modal = document.getElementById(modalId);
+   if (modal) {
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      modal.focus();
+   }
+}
+
+function closeModal(modalId) {
+   const modal = document.getElementById(modalId);
+   if (modal) {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+   }
+}
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+   if (e.key === 'Escape') {
+      const openModal = document.querySelector('.modal[style*="flex"]');
+      if (openModal) {
+         closeModal(openModal.id);
+      }
+   }
+});
+
+// Add to cart functionality (placeholder)
+document.addEventListener('DOMContentLoaded', function() {
+   const addToCartButtons = document.querySelectorAll('.add-to-cart');
+   
+   addToCartButtons.forEach(button => {
+      button.addEventListener('click', function() {
+         const productId = this.dataset.productId;
+         // TODO: Implement cart functionality
+         
+         // Show feedback
+         const originalText = this.innerHTML;
+         this.innerHTML = '<i class="fas fa-check"></i> ¡Añadido!';
+         this.disabled = true;
+         
+         setTimeout(() => {
+            this.innerHTML = originalText;
+            this.disabled = false;
+         }, 2000);
+      });
+   });
+});
+</script>
 {% endblock %}

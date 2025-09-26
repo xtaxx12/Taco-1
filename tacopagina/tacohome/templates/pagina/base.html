@@ -6,65 +6,223 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tacopagina</title>
+    <meta name="description" content="Taco Home - Auténtica comida TEX-MEX con ingredientes frescos y recetas tradicionales">
+    <meta name="keywords" content="tacos, burritos, comida mexicana, tex-mex, restaurante">
+    <meta name="author" content="Taco Home">
+    
+    <title>{% block title %}Taco Home - Sabor auténtico{% endblock %}</title>
 
-    <!-- font awesome cdn link  -->
-    <link rel="icon" href="{% static '/favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Preload critical resources -->
+    <link rel="preload" href="{% static 'css/style.css' %}" as="style">
+    <link rel="preload" href="{% static 'js/script.js' %}" as="script">
+    
+    <!-- Icons and Fonts -->
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
-    <!-- custom css file link  -->
-    <link rel="stylesheet" href="{% static '/css/style.css' %}">>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    
+    <!-- Additional CSS for specific pages -->
+    {% block extra_css %}{% endblock %}
 
 </head>
 <body>  
-   <header class="header">
+   <!-- Loading Spinner -->
+   <div id="loading-spinner" class="loading-spinner">
+       <div class="spinner"></div>
+   </div>
 
-      <div id="menu-btn" class="fas fa-bars icons"></div>
-      <div id="search-btn" class="fas fasearch icons"></div>
+   <!-- Header -->
+   <header class="header" role="banner">
+      <div class="header-container">
+         <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Taco Home Logo" loading="lazy">
+         </div>
 
-      <nav class="navbar">
-         <a href="{% url 'index' %}">Inicio</a>
-         <a href="{% url 'menu' %}">Menú</a>
-      </nav>
+         <button id="menu-btn" class="menu-toggle" aria-label="Abrir menú de navegación">
+            <i class="fas fa-bars"></i>
+         </button>
 
-      <a href="#" class="fas fa-shopping-cart icons"></a>
+         <nav class="navbar" role="navigation" aria-label="Navegación principal">
+            <a href="{% url 'index' %}" {% if request.resolver_match.url_name == 'index' %}class="active"{% endif %}>
+               <i class="fas fa-home"></i> Inicio
+            </a>
+            <a href="{% url 'menu' %}" {% if request.resolver_match.url_name == 'menu' %}class="active"{% endif %}>
+               <i class="fas fa-utensils"></i> Menú
+            </a>
+            {% if user.is_authenticated %}
+               <a href="{% url 'logout' %}">
+                  <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+               </a>
+               <span class="user-greeting">¡Hola, {{ user.first_name|default:user.username }}!</span>
+            {% else %}
+               <a href="{% url 'login' %}">
+                  <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+               </a>
+               <a href="{% url 'register' %}">
+                  <i class="fas fa-user-plus"></i> Registrarse
+               </a>
+            {% endif %}
+         </nav>
 
-      
-
+         <div class="header-actions">
+            <button class="cart-btn" aria-label="Ver carrito de compras">
+               <i class="fas fa-shopping-cart"></i>
+               <span class="cart-count">0</span>
+            </button>
+         </div>
+      </div>
    </header>
 
-<!-- header section ends  -->
+   <!-- Messages -->
+   {% if messages %}
+   <div class="messages-container">
+      {% for message in messages %}
+         <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+            <i class="fas fa-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' %}exclamation-triangle{% else %}info-circle{% endif %}"></i>
+            {{ message }}
+            <button type="button" class="close" aria-label="Cerrar mensaje">
+               <i class="fas fa-times"></i>
+            </button>
+         </div>
+      {% endfor %}
+   </div>
+   {% endif %}
 
-<!-- Contenido  -->
-{% block body %}
+   <!-- Main Content -->
+   <main role="main">
+      {% block body %}
+      {% endblock %}
+   </main>
 
- 
-{% endblock %}
-<!-- fin del Contenido  -->
+   <!-- Footer -->
+   <footer class="footer" role="contentinfo">
+      <div class="footer-content">
+         <div class="footer-section">
+            <h3>Taco Home</h3>
+            <p>Auténtica comida TEX-MEX con ingredientes frescos y recetas tradicionales.</p>
+            <div class="social-links">
+               <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+               <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+               <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+         </div>
+         
+         <div class="footer-section">
+            <h4>Contacto</h4>
+            <p><i class="fas fa-map-marker-alt"></i> Ayacucho, entre 25 de Junio & Sucre</p>
+            <p><i class="fas fa-phone"></i> +593 963410295</p>
+            <p><i class="fas fa-envelope"></i> tacohome2011@gmail.com</p>
+         </div>
+         
+         <div class="footer-section">
+            <h4>Horarios</h4>
+            <p>Lunes - Viernes: 11:00 AM - 10:00 PM</p>
+            <p>Sábados: 12:00 PM - 11:00 PM</p>
+            <p>Domingos: 12:00 PM - 9:00 PM</p>
+         </div>
+      </div>
+      
+      <div class="footer-bottom">
+         <p>&copy; 2024 Taco Home. Todos los derechos reservados.</p>
+      </div>
+   </footer>
 
-<!-- footer section starts  -->
-
-<section class="footer">
-
-   <p class="credit"> Creado por <span><a href="#"> ᵃ </a></span></p><br>
-
-</section>
-
-<!-- footer section ends -->
-
-<!-- custom js file link      -->
-<script src="{% static '/js/script.js' %}"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-
-<script>
-
-AOS.init({
-   duration: 800,
-});
-
-</script>
+   <!-- Scripts -->
+   <script src="{% static 'js/script.js' %}" defer></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
+   
+   <script>
+   document.addEventListener('DOMContentLoaded', function() {
+      // Initialize AOS
+      AOS.init({
+         duration: 800,
+         once: true,
+         offset: 100
+      });
+      
+      // Hide loading spinner
+      const spinner = document.getElementById('loading-spinner');
+      if (spinner) {
+         setTimeout(() => {
+            spinner.style.display = 'none';
+         }, 500);
+      }
+      
+      // Mobile menu toggle
+      const menuBtn = document.getElementById('menu-btn');
+      const navbar = document.querySelector('.navbar');
+      
+      if (menuBtn && navbar) {
+         menuBtn.addEventListener('click', function() {
+            navbar.classList.toggle('active');
+            this.classList.toggle('active');
+         });
+         
+         // Close menu when clicking outside
+         document.addEventListener('click', function(e) {
+            if (!menuBtn.contains(e.target) && !navbar.contains(e.target)) {
+               navbar.classList.remove('active');
+               menuBtn.classList.remove('active');
+            }
+         });
+      }
+      
+      // Auto-hide messages
+      const messages = document.querySelectorAll('.alert');
+      messages.forEach(message => {
+         setTimeout(() => {
+            message.style.opacity = '0';
+            setTimeout(() => message.remove(), 300);
+         }, 5000);
+      });
+      
+      // Close message buttons
+      document.querySelectorAll('.alert .close').forEach(btn => {
+         btn.addEventListener('click', function() {
+            this.parentElement.style.opacity = '0';
+            setTimeout(() => this.parentElement.remove(), 300);
+         });
+      });
+      
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+         anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+               target.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+               });
+            }
+         });
+      });
+      
+      // Header scroll effect
+      const header = document.querySelector('.header');
+      let lastScrollTop = 0;
+      
+      window.addEventListener('scroll', function() {
+         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+         
+         if (scrollTop > lastScrollTop && scrollTop > 100) {
+            // Scrolling down
+            header.style.transform = 'translateY(-100%)';
+         } else {
+            // Scrolling up
+            header.style.transform = 'translateY(0)';
+         }
+         
+         lastScrollTop = scrollTop;
+      });
+   });
+   </script>
+   
+   {% block extra_js %}{% endblock %}
     
 </body>
 </html>

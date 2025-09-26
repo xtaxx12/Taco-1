@@ -1,0 +1,21 @@
+# Django Framework
+Django==4.2.2
+
+# Environment Variables
+python-decouple==3.8
+
+# Image Processing
+Pillow>=9.0.0
+
+# Font Awesome
+fontawesomefree==6.4.2
+
+# Development Dependencies (optional)
+# django-debug-toolbar==4.2.0
+# django-extensions==3.2.3
+
+# Production Dependencies (optional)
+# psycopg2-binary==2.9.7  # Para PostgreSQL en producción
+# gunicorn==21.2.0
+# whitenoise==6.5.0
+# django-cors-headers==4.2.0

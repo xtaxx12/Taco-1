@@ -1,28 +1,41 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
-from django.contrib.auth import authenticate, login as auth_login
-from .models import Producto
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.core.paginator import Paginator
+from django.db.models import Q
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from .models import Producto, CategoriaProd
+from .forms import RegistrationForm
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def register(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
-
-        # Validar contraseñas coincidentes
-        if password1 != password2:
-            return render(request, 'pagina/register.html', {'form': None, 'error_message': 'Las contraseñas no coinciden'})
-
-        # Crear el usuario
-        user = User.objects.create_user(username=username, password=password1)
-
-        # Redirigir al usuario a la página de inicio de sesión después de registrarse
-        return redirect('login')  # Ajusta 'login' según la URL de tu vista de inicio de sesión
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            try:
+                user = form.save()
+                messages.success(request, 'Cuenta creada exitosamente. Ya puedes iniciar sesión.')
+                logger.info(f'Nuevo usuario registrado: {user.username}')
+                return redirect('login')
+            except Exception as e:
+                logger.error(f'Error al registrar usuario: {e}')
+                messages.error(request, 'Error al crear la cuenta. Intenta nuevamente.')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f'{field}: {error}')
     else:
-        return render(request, 'pagina/register.html', {'form': None})
+        form = RegistrationForm()
+    
+    return render(request, 'pagina/register.html', {'form': form})
 
 
 def index(request):
@@ -32,31 +45,67 @@ def base(request):
     return render(request, "pagina/base.html")
 
 def menu(request):
-    productos = Producto.objects.all()
-    return render(request, "pagina/menu.html", {"productos": productos})
+    try:
+        # Filtros y búsqueda
+        search_query = request.GET.get('search', '')
+        categoria_id = request.GET.get('categoria', '')
+        
+        productos = Producto.objects.select_related('categorias').all()
+        
+        if search_query:
+            productos = productos.filter(
+                Q(nombre__icontains=search_query) | 
+                Q(descripcion__icontains=search_query)
+            )
+        
+        if categoria_id:
+            productos = productos.filter(categorias_id=categoria_id)
+        
+        # Paginación
+        paginator = Paginator(productos, 12)  # 12 productos por página
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        
+        categorias = CategoriaProd.objects.all()
+        
+        context = {
+            'productos': page_obj,
+            'categorias': categorias,
+            'search_query': search_query,
+            'selected_categoria': categoria_id,
+        }
+        
+        return render(request, "pagina/menu.html", context)
+    except Exception as e:
+        logger.error(f'Error en vista menu: {e}')
+        messages.error(request, 'Error al cargar el menú.')
+        return render(request, "pagina/menu.html", {'productos': []})
 
 def custom_login(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+        
     if request.method == "POST":
-        username = request.POST.get("username", "")
+        username = request.POST.get("username", "").strip()
         password = request.POST.get("password", "")
 
-        # Validar que el campo de usuario no esté vacío
-        if not username:
-            return render(request, "pagina/login.html", {"error_message": "El campo de usuario es requerido"})
+        if not username or not password:
+            messages.error(request, "Todos los campos son requeridos")
+            return render(request, "pagina/login.html")
 
-        # Autenticar al usuario
-        user = authenticate(request, username=username, password=password)
+        try:
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                auth_login(request, user)
+                messages.success(request, f'¡Bienvenido {user.username}!')
+                next_url = request.GET.get('next', 'index')
+                return redirect(next_url)
+            else:
+                messages.error(request, "Credenciales incorrectas")
+        except Exception as e:
+            logger.error(f'Error en login: {e}')
+            messages.error(request, "Error en el sistema. Intenta más tarde.")
 
-        if user is not None:
-            # Login exitoso
-            auth_login(request, user)
-            # Redirigir a la página principal después de iniciar sesión
-            return redirect('index')  # Utiliza el nombre 'index' según la URL de tu vista de inicio
-        else:
-            # Login fallido
-            return render(request, "pagina/login.html", {"error_message": "Usuario o contraseña incorrectos"})
-
-    # Si no es una solicitud POST, simplemente muestra la página de inicio de sesión
     return render(request, "pagina/login.html")
 
 
@@ -77,22 +126,57 @@ def logout_view(request):
 
 
 def enviar_correo(request):
-    enviado_correctamente = False
     if request.method == "POST":
-        email = request.POST.get("email", "")
-        subject = "Gracias por ponerte en contacto con nosotros"
-        message = f"Hola, \n\nGracias por ponerte en contacto con nosotros. Pronto te responderemos.\n\nAtentamente, \nEl equipo de Cooperativa Oro Verde \nEste canal fue creado para compartir información esencial \npara tu funcionamiento en nuestra plataforma. Los mensajes son automáticos, \npor lo tanto, no podremos responder tus comentarios por esta vía."
-        from_email = email
-        recipient_list = [email]
+        nombre = request.POST.get("nombre", "").strip()
+        email = request.POST.get("email", "").strip()
+        telefono = request.POST.get("telefono", "").strip()
+        mensaje = request.POST.get("mensaje", "").strip()
+        
+        # Validaciones básicas
+        if not all([nombre, email, mensaje]):
+            messages.error(request, "Todos los campos marcados son obligatorios")
+            return redirect('index')
+        
         try:
-            # Envía el correo
-            send_mail(subject, message, from_email, recipient_list)
-            enviado_correctamente = True
+            # Email al cliente
+            subject_cliente = "Gracias por contactarnos - Taco Home"
+            message_cliente = f"""
+            Hola {nombre},
+            
+            Gracias por ponerte en contacto con Taco Home. 
+            Hemos recibido tu mensaje y te responderemos pronto.
+            
+            Tu mensaje:
+            {mensaje}
+            
+            ¡Esperamos verte pronto en nuestro restaurante!
+            
+            Atentamente,
+            El equipo de Taco Home
+            """
+            
+            # Email interno
+            subject_interno = f"Nuevo mensaje de contacto - {nombre}"
+            message_interno = f"""
+            Nuevo mensaje de contacto recibido:
+            
+            Nombre: {nombre}
+            Email: {email}
+            Teléfono: {telefono}
+            
+            Mensaje:
+            {mensaje}
+            """
+            
+            # Enviar emails
+            send_mail(subject_cliente, message_cliente, 'noreply@tacohome.com', [email])
+            send_mail(subject_interno, message_interno, email, ['tacohome2011@gmail.com'])
+            
+            messages.success(request, "¡Mensaje enviado correctamente! Te responderemos pronto.")
+            logger.info(f'Mensaje de contacto enviado por: {email}')
+            
         except Exception as e:
-            # Maneja el error de manera específica
-            pass
-
-    return render(
-        request, "pagina/index.html", {
-            "enviado_correctamente": enviado_correctamente}
-    )
+            logger.error(f'Error al enviar correo: {e}')
+            messages.error(request, "Error al enviar el mensaje. Intenta nuevamente.")
+    
+    return redirect('index')
