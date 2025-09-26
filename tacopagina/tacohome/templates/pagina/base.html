@@ -57,25 +57,32 @@
 
          <nav class="navbar" role="navigation" aria-label="Navegación principal">
             <a href="{% url 'index' %}" {% if request.resolver_match.url_name == 'index' %}class="active"{% endif %}>
-               <i class="fas fa-home"></i> Inicio
+               Inicio
             </a>
             <a href="{% url 'menu' %}" {% if request.resolver_match.url_name == 'menu' %}class="active"{% endif %}>
-               <i class="fas fa-utensils"></i> Menú
+               Menú
             </a>
+            <a href="#contact">
+               Contacto
+            </a>
+         </nav>
+
+         <div class="header-actions">
             {% if user.is_authenticated %}
-               <a href="{% url 'logout' %}">
-                  <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-               </a>
                <span class="user-greeting">¡Hola, {{ user.first_name|default:user.username }}!</span>
-            {% else %}
-               <a href="{% url 'login' %}">
-                  <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+               <a href="{% url 'logout' %}" class="logout-btn">
+                  <i class="fas fa-sign-out-alt"></i>
                </a>
-               <a href="{% url 'register' %}">
-                  <i class="fas fa-user-plus"></i> Registrarse
+            {% else %}
+               <a href="{% url 'login' %}" class="login-btn">
+                  Iniciar Sesión
                </a>
             {% endif %}
-         </nav>
+            <button class="cart-btn" aria-label="Ver carrito de compras">
+               <i class="fas fa-shopping-cart"></i>
+               <span class="cart-count">0</span>
+            </button>
+         </div>
 
          <div class="header-actions">
             <button class="cart-btn" aria-label="Ver carrito de compras">
