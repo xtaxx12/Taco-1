@@ -9,29 +9,29 @@
     <meta name="description" content="Taco Home - Auténtica comida TEX-MEX con ingredientes frescos y recetas tradicionales">
     <meta name="keywords" content="tacos, burritos, comida mexicana, tex-mex, restaurante">
     <meta name="author" content="Taco Home">
-    
+    <meta name="theme-color" content="#FF6B35">
+
     <title>{% block title %}Taco Home - Sabor auténtico{% endblock %}</title>
 
-    <!-- Preload critical resources -->
-    <link rel="preload" href="{% static 'css/style.css' %}" as="style">
-    <link rel="preload" href="{% static 'js/script.js' %}" as="script">
-    
-    <!-- Icons and Fonts -->
+    <!-- Icons -->
     <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- AOS Animations -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
-    <!-- Custom CSS -->
+    <!-- Custom CSS - Nuevo Sistema Moderno -->
+    <link rel="stylesheet" href="{% static 'css/variables.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modern-base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modern-components.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modern-pages.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+
+    <!-- CSS Antiguo (Backup) -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
-    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <!-- Additional CSS for specific pages -->
     {% block extra_css %}{% endblock %}
 
@@ -43,7 +43,7 @@
        <div class="loading-text">Cargando Taco Home...</div>
    </div>
 
-   <!-- Header -->
+   <!-- Header Moderno -->
    <header class="header" role="banner">
       <div class="header-container">
          <a href="{% url 'index' %}" class="logo">
@@ -51,45 +51,38 @@
             <span class="logo-text">Taco Home</span>
          </a>
 
-         <button id="menu-btn" class="menu-toggle" aria-label="Abrir menú de navegación">
-            <i class="fas fa-bars"></i>
-         </button>
-
          <nav class="navbar" role="navigation" aria-label="Navegación principal">
             <a href="{% url 'index' %}" {% if request.resolver_match.url_name == 'index' %}class="active"{% endif %}>
-               Inicio
+               <i class="fas fa-home"></i> Inicio
             </a>
             <a href="{% url 'menu' %}" {% if request.resolver_match.url_name == 'menu' %}class="active"{% endif %}>
-               Menú
+               <i class="fas fa-utensils"></i> Menú
             </a>
             <a href="#contact">
-               Contacto
+               <i class="fas fa-envelope"></i> Contacto
             </a>
          </nav>
 
          <div class="header-actions">
             {% if user.is_authenticated %}
                <span class="user-greeting">¡Hola, {{ user.first_name|default:user.username }}!</span>
-               <a href="{% url 'logout' %}" class="logout-btn">
+               <a href="{% url 'logout' %}" class="logout-btn" title="Cerrar sesión">
                   <i class="fas fa-sign-out-alt"></i>
                </a>
             {% else %}
                <a href="{% url 'login' %}" class="login-btn">
-                  Iniciar Sesión
+                  <i class="fas fa-user"></i> Iniciar Sesión
                </a>
             {% endif %}
-            <button class="cart-btn" aria-label="Ver carrito de compras">
+            <button class="cart-btn" aria-label="Ver carrito de compras" title="Carrito de compras">
                <i class="fas fa-shopping-cart"></i>
-               <span class="cart-count">0</span>
+               <span class="cart-count" style="display: none;">0</span>
             </button>
          </div>
 
-         <div class="header-actions">
-            <button class="cart-btn" aria-label="Ver carrito de compras">
-               <i class="fas fa-shopping-cart"></i>
-               <span class="cart-count">0</span>
-            </button>
-         </div>
+         <button class="menu-toggle" aria-label="Abrir menú de navegación">
+            <i class="fas fa-bars"></i>
+         </button>
       </div>
    </header>
 
@@ -148,8 +141,9 @@
    </footer>
 
    <!-- Scripts -->
-   <script src="{% static 'js/script.js' %}" defer></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+   <script src="{% static 'js/modern-app.js' %}"></script>
+   <script src="{% static 'js/script.js' %}"></script>
    
    <script>
    document.addEventListener('DOMContentLoaded', function() {
