@@ -1,60 +1,78 @@
 /* ========================================
-   TACO HOME - SISTEMA DE DISEÑO PROFESIONAL
-   Variables CSS Modernas
+   TACO HOME - SISTEMA DE DISEÑO "JUICY & FRESH"
+   Variables CSS - Estilo Restaurante Mexicano
    ======================================== */
 
 :root {
-  /* Paleta de Colores Principal - Tonos Cálidos Mexicanos */
-  --primary-orange: #FF6B35;
-  --primary-orange-light: #FF8C61;
-  --primary-orange-dark: #E05A2E;
+  /* Paleta de Colores Principal - "Juicy & Fresh" */
+  /* Rojo Salsa - CTA Principal */
+  --primary-red: #E63946;
+  --primary-red-light: #FF6B6B;
+  --primary-red-dark: #C1121F;
 
-  --secondary-red: #D32F2F;
-  --secondary-red-light: #E57373;
-  --secondary-red-dark: #B71C1C;
+  /* Amarillo Maíz - Acentos y Highlights */
+  --accent-yellow: #FFB703;
+  --accent-yellow-light: #FFC94D;
+  --accent-yellow-dark: #FB8500;
 
-  --accent-yellow: #FFA726;
-  --accent-yellow-light: #FFB74D;
-  --accent-yellow-dark: #F57C00;
+  /* Verde Cilantro - Header y Elementos Naturales */
+  --accent-green: #2D6A4F;
+  --accent-green-light: #40916C;
+  --accent-green-dark: #1B4332;
 
-  --accent-green: #4CAF50;
-  --accent-green-light: #81C784;
-  --accent-green-dark: #388E3C;
+  /* Marrón Cálido - Textos y Fondos */
+  --brown-dark: #3D2914;
+  --brown-medium: #5C4033;
+  --brown-light: #8B6914;
 
-  /* Colores Neutros Profesionales */
-  --neutral-50: #FAFAFA;
-  --neutral-100: #F5F5F5;
-  --neutral-200: #EEEEEE;
-  --neutral-300: #E0E0E0;
-  --neutral-400: #BDBDBD;
-  --neutral-500: #9E9E9E;
-  --neutral-600: #757575;
-  --neutral-700: #616161;
-  --neutral-800: #424242;
-  --neutral-900: #212121;
+  /* Crema/Beige - Fondos Cálidos */
+  --cream: #FFF8F0;
+  --cream-dark: #F5E6D3;
+  --kraft: #D4A574;
+
+  /* Colores del Logo (para referencia) */
+  --logo-red: #E63946;
+  --logo-yellow: #FFB703;
+  --logo-green: #2D6A4F;
+
+  /* Colores Neutros Cálidos */
+  --neutral-50: #FFFBF5;
+  --neutral-100: #FFF8F0;
+  --neutral-200: #F5E6D3;
+  --neutral-300: #E8D5C4;
+  --neutral-400: #C4A77D;
+  --neutral-500: #9E8B7D;
+  --neutral-600: #6B5B4F;
+  --neutral-700: #4A3F35;
+  --neutral-800: #3D2914;
+  --neutral-900: #2C1810;
 
   /* Colores Semánticos */
-  --success: #4CAF50;
-  --warning: #FFC107;
-  --error: #F44336;
-  --info: #2196F3;
+  --success: #40916C;
+  --warning: #FFB703;
+  --error: #E63946;
+  --info: #219EBC;
 
   /* Backgrounds */
   --bg-primary: #FFFFFF;
-  --bg-secondary: #F8F9FA;
-  --bg-dark: #1A1A1A;
-  --bg-overlay: rgba(0, 0, 0, 0.7);
+  --bg-secondary: #FFF8F0;
+  --bg-dark: #2C1810;
+  --bg-overlay: rgba(44, 24, 16, 0.85);
   --bg-card: #FFFFFF;
+  --bg-hero: linear-gradient(135deg, #2C1810 0%, #3D2914 100%);
 
-  /* Gradientes Modernos */
-  --gradient-primary: linear-gradient(135deg, #FF6B35 0%, #FFA726 100%);
-  --gradient-hero: linear-gradient(135deg, rgba(255, 107, 53, 0.95) 0%, rgba(255, 167, 38, 0.95) 100%);
-  --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-  --gradient-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+  /* Gradientes "Juicy" */
+  --gradient-primary: linear-gradient(135deg, #E63946 0%, #FF6B6B 100%);
+  --gradient-yellow: linear-gradient(135deg, #FFB703 0%, #FFC94D 100%);
+  --gradient-green: linear-gradient(135deg, #2D6A4F 0%, #40916C 100%);
+  --gradient-hero: linear-gradient(135deg, rgba(44, 24, 16, 0.9) 0%, rgba(61, 41, 20, 0.85) 100%);
+  --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  --gradient-overlay: linear-gradient(180deg, rgba(44, 24, 16, 0) 0%, rgba(44, 24, 16, 0.95) 100%);
 
-  /* Tipografía */
-  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-heading: 'Poppins', 'Inter', sans-serif;
+  /* Tipografía - Divertida pero Legible */
+  --font-primary: 'Nunito', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Fredoka One', 'Poppins', 'Inter', sans-serif;
+  --font-accent: 'Lobster', cursive;
 
   /* Tamaños de Fuente (Escala Modular 1.250) */
   --text-xs: 0.75rem;      /* 12px */
@@ -107,10 +125,12 @@
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
 
-  /* Sombras con Color */
-  --shadow-primary: 0 10px 30px -5px rgba(255, 107, 53, 0.3);
-  --shadow-success: 0 10px 30px -5px rgba(76, 175, 80, 0.3);
-  --shadow-error: 0 10px 30px -5px rgba(244, 67, 54, 0.3);
+  /* Sombras con Color - "Juicy" */
+  --shadow-primary: 0 10px 30px -5px rgba(230, 57, 70, 0.4);
+  --shadow-yellow: 0 10px 30px -5px rgba(255, 183, 3, 0.4);
+  --shadow-green: 0 10px 30px -5px rgba(45, 106, 79, 0.3);
+  --shadow-success: 0 10px 30px -5px rgba(64, 145, 108, 0.3);
+  --shadow-error: 0 10px 30px -5px rgba(230, 57, 70, 0.3);
 
   /* Transiciones */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);

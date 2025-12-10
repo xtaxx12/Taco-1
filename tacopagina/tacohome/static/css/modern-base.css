@@ -3,7 +3,7 @@
    Reset y Estilos Globales
    ======================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Fredoka+One&family=Lobster&family=Poppins:wght@400;500;600;700;800&display=swap');
 @import url('variables.css');
 
 /* ========== RESET MODERNO ========== */
@@ -76,17 +76,17 @@ p {
 }
 
 a {
-  color: var(--primary-orange);
+  color: var(--primary-red);
   text-decoration: none;
   transition: color var(--transition-base);
 }
 
 a:hover {
-  color: var(--primary-orange-dark);
+  color: var(--primary-red-dark);
 }
 
 a:focus-visible {
-  outline: 2px solid var(--primary-orange);
+  outline: 2px solid var(--primary-red);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
@@ -114,7 +114,7 @@ strong, b {
 }
 
 .text-primary {
-  color: var(--primary-orange);
+  color: var(--primary-red);
 }
 
 .text-muted {
@@ -153,9 +153,10 @@ section {
 
 .section-title {
   font-size: var(--text-4xl);
+  font-family: 'Fredoka One', var(--font-heading);
   font-weight: var(--font-extrabold);
-  color: var(--neutral-900);
-  margin-bottom: var(--space-4);
+  color: #3D2914;
+  margin-bottom: var(--space-6);
   position: relative;
   display: inline-block;
 }
@@ -163,12 +164,12 @@ section {
 .section-title::after {
   content: '';
   position: absolute;
-  bottom: -var(--space-2);
+  bottom: -12px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
-  height: 4px;
-  background: var(--gradient-primary);
+  width: 100px;
+  height: 5px;
+  background: linear-gradient(90deg, #E63946, #FFB703, #2D6A4F);
   border-radius: var(--radius-full);
 }
 
@@ -230,29 +231,65 @@ section {
 }
 
 /* Variantes de Botones */
+/* Botón Principal - Rojo Jugoso */
 .btn-primary {
   background: var(--gradient-primary);
   color: white;
   box-shadow: var(--shadow-primary);
+  font-size: var(--text-lg);
+  padding: var(--space-5) var(--space-10);
+  border-radius: var(--radius-2xl);
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 35px -5px rgba(255, 107, 53, 0.4);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 18px 40px -5px rgba(230, 57, 70, 0.5);
 }
 
+/* Botón Secundario - Amarillo Vibrante */
 .btn-secondary {
-  background: white;
-  color: var(--primary-orange);
-  border: 2px solid var(--primary-orange);
-  box-shadow: var(--shadow-sm);
+  background: var(--gradient-yellow);
+  color: var(--brown-dark);
+  border: none;
+  box-shadow: var(--shadow-yellow);
+  font-size: var(--text-lg);
+  padding: var(--space-5) var(--space-10);
+  border-radius: var(--radius-2xl);
+  font-weight: var(--font-bold);
 }
 
 .btn-secondary:hover {
-  background: var(--primary-orange);
+  background: var(--accent-yellow-dark);
   color: white;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 18px 40px -5px rgba(255, 183, 3, 0.5);
+}
+
+/* Botón Grande - Para CTAs principales */
+.btn-lg {
+  padding: var(--space-6) var(--space-12);
+  font-size: var(--text-xl);
+  border-radius: var(--radius-2xl);
+  min-width: 200px;
+}
+
+/* Efecto "Jugoso" para botones */
+.btn-primary.btn-lg {
+  background: linear-gradient(135deg, #E63946 0%, #FF6B6B 50%, #E63946 100%);
+  background-size: 200% 200%;
+  animation: juicyPulse 3s ease-in-out infinite;
+}
+
+@keyframes juicyPulse {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .btn-outline {
@@ -363,8 +400,8 @@ section {
 
 .form-control:focus {
   outline: none;
-  border-color: var(--primary-orange);
-  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+  border-color: var(--primary-red);
+  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15);
 }
 
 .form-control:disabled {
@@ -411,7 +448,7 @@ textarea.form-control {
 }
 
 .badge-primary {
-  background: var(--primary-orange);
+  background: var(--primary-red);
   color: white;
 }
 
@@ -450,7 +487,7 @@ textarea.form-control {
   width: 50px;
   height: 50px;
   border: 4px solid var(--neutral-200);
-  border-top-color: var(--primary-orange);
+  border-top-color: var(--primary-red);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -626,32 +663,32 @@ textarea.form-control {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--neutral-100);
+  background: var(--cream);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-orange);
+  background: var(--primary-red);
   border-radius: var(--radius-full);
-  border: 2px solid var(--neutral-100);
+  border: 2px solid var(--cream);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-orange-dark);
+  background: var(--primary-red-dark);
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--primary-orange) var(--neutral-100);
+  scrollbar-color: var(--primary-red) var(--cream);
 }
 
 /* ========== SELECCIÓN DE TEXTO ========== */
 ::selection {
-  background: var(--primary-orange);
+  background: var(--primary-red);
   color: white;
 }
 
 ::-moz-selection {
-  background: var(--primary-orange);
+  background: var(--primary-red);
   color: white;
 }

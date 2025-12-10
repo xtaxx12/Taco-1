@@ -4,35 +4,38 @@
 {% block title %}Inicio - Taco Home{% endblock %}
 
 {% block body %}
-<!-- Hero Section Rediseñado -->
+<!-- Hero Section - Juicy & Fresh -->
 <section class="hero" id="home">
    <div class="hero-content">
       <div class="hero-text" data-aos="fade-right" data-aos-delay="150">
-         <h1>¡Sabor Auténtico, Pasión En Cada Bocado!</h1>
+         <h1>¡Sabor <span>Auténtico</span>, Pasión En Cada Bocado!</h1>
          <p class="hero-subtitle">Descubre la auténtica experiencia TEX-MEX con ingredientes frescos, 
             recetas tradicionales y el sabor que conquistará tu paladar. 
             <strong>¡Cada taco cuenta una historia!</strong></p>
          
          <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
             <div class="stat-item">
+               <i class="fas fa-award stat-icon"></i>
                <span class="stat-number">15+</span>
                <span class="stat-label">Años de Experiencia</span>
             </div>
             <div class="stat-item">
+               <i class="fas fa-book-open stat-icon"></i>
                <span class="stat-number">50+</span>
                <span class="stat-label">Recetas Únicas</span>
             </div>
             <div class="stat-item">
+               <i class="fas fa-smile-beam stat-icon"></i>
                <span class="stat-number">1000+</span>
                <span class="stat-label">Clientes Felices</span>
             </div>
          </div>
          
          <div class="hero-buttons" data-aos="fade-up" data-aos-delay="600">
-            <a href="{% url 'menu' %}" class="btn-primary">
-               <i class="fas fa-utensils"></i> Explorar Menú
+            <a href="{% url 'menu' %}" class="btn-primary btn-lg">
+               <i class="fas fa-utensils"></i> ¡PEDIR AHORA!
             </a>
-            <a href="#contact" class="btn-secondary">
+            <a href="#contact" class="btn-secondary btn-lg">
                <i class="fas fa-map-marker-alt"></i> Visítanos
             </a>
          </div>
@@ -40,7 +43,7 @@
       
       <div class="hero-image" data-aos="fade-left" data-aos-delay="300">
          <div class="image-container">
-            <img src="{% static 'images/tacos-baner.png' %}" alt="Deliciosos tacos de Taco Home" loading="lazy">
+            <img src="{% static 'images/logo.png' %}" alt="Taco Home - Deliciosos tacos mexicanos" loading="lazy">
             <div class="image-decoration"></div>
          </div>
       </div>
@@ -86,10 +89,9 @@
 <!-- Contact Section -->
 <section class="contact" id="contact">
    <div class="container">
-      <div class="heading" data-aos="fade-up">
-         <img src="{% static 'images/title-img.png' %}" alt="Decoración" loading="lazy">
-         <h2>Contáctanos</h2>
-         <p>¿Tienes alguna pregunta o quieres hacer una reserva? ¡Estamos aquí para ayudarte!</p>
+      <div class="section-header" data-aos="fade-up">
+         <h2 class="section-title">Contáctanos</h2>
+         <p class="section-subtitle">¿Tienes alguna pregunta o quieres hacer una reserva? ¡Estamos aquí para ayudarte!</p>
       </div>
 
       <div class="contact-content">

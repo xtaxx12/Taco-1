@@ -1,12 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;400;500;600&display=swap");
+/* LEGACY STYLES - Deshabilitados para nuevo diseño Juicy & Fresh */
+/* Los nuevos estilos están en variables.css, modern-base.css, modern-components.css, modern-pages.css */
+
 :root{
-  --color-verde-1:#c4e707;
-  --color-verde-2:#c7ed02;
-  --color-verde-3:#bbe30a;
-  --color-morado-1:#8a36d2;
-  --color-morado-2:#8d3ed2;
-  --color-morado-3:#882ec7;
-  
+  /* Colores legacy - Ya no se usan, mantenidos por compatibilidad */
+  --color-verde-1:#2D6A4F;
+  --color-verde-2:#40916C;
+  --color-verde-3:#1B4332;
+  --color-morado-1:#3D2914;
+  --color-morado-2:#5C4033;
+  --color-morado-3:#2C1810;
 }
 
 * {
@@ -78,7 +81,8 @@ section {
   font-size: 2rem;
 }
 
-.header {
+/* Header legacy - Sobrescrito por modern-components.css */
+.header-legacy {
   position: fixed;
   top: 0;
   left: 0;
