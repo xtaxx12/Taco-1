@@ -91,7 +91,7 @@ def custom_login(request):
 
         if not username or not password:
             messages.error(request, "Todos los campos son requeridos")
-            return render(request, "pagina/login.html")
+            return render(request, "pagina/login_redesigned.html")
 
         try:
             user = authenticate(request, username=username, password=password)
@@ -106,7 +106,7 @@ def custom_login(request):
             logger.error(f'Error en login: {e}')
             messages.error(request, "Error en el sistema. Intenta más tarde.")
 
-    return render(request, "pagina/login.html")
+    return render(request, "pagina/login_redesigned.html")
 
 
 

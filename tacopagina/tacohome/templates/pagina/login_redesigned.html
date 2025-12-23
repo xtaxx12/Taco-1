@@ -1,0 +1,311 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Taco Home | Auténtica Comida Tex-Mex</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Inicia sesión en Taco Home para acceder a los mejores platillos Tex-Mex. Ordena tacos, burritos y más.">
+    
+    <!-- Icons and Fonts -->
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{% static 'css/style-login-modern.css' %}">
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="background-effects">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+    
+    <!-- Back to Home Button -->
+    <a href="{% url 'index' %}" class="back-home" id="backHomeBtn">
+        <i class="fas fa-arrow-left"></i>
+        <span>Volver al Inicio</span>
+    </a>
+    
+    <!-- Main Login Container -->
+    <main class="login-wrapper">
+        <div class="login-container" id="loginContainer">
+            
+            <!-- Left Panel - Branding -->
+            <section class="brand-panel" aria-label="Sección de marca Taco Home">
+                <div class="brand-overlay"></div>
+                <div class="brand-pattern"></div>
+                
+                <div class="brand-content">
+                    <!-- Logo -->
+                    <div class="brand-logo">
+                        <img src="{% static 'images/logo.png' %}" alt="Taco Home Logo" class="logo-img">
+                    </div>
+                    
+                    <!-- Welcome Message -->
+                    <div class="brand-text">
+                        <h1 class="brand-title">
+                            <span class="welcome-line">¡Bienvenido</span>
+                            <span class="welcome-line accent">de vuelta!</span>
+                        </h1>
+                        <p class="brand-description">
+                            Inicia sesión para acceder a tu cuenta y disfrutar de los mejores platillos 
+                            <strong>TEX-MEX</strong> de la ciudad.
+                        </p>
+                    </div>
+                    
+                    <!-- Features Badges -->
+                    <div class="brand-features">
+                        <div class="feature-badge">
+                            <i class="fas fa-pepper-hot"></i>
+                            <span>100% Auténtico</span>
+                        </div>
+                        <div class="feature-badge">
+                            <i class="fas fa-truck-fast"></i>
+                            <span>Delivery Rápido</span>
+                        </div>
+                        <div class="feature-badge">
+                            <i class="fas fa-star"></i>
+                            <span>+5000 Reseñas</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Decorative Food Elements -->
+                <div class="food-decoration">
+                    <div class="deco-taco"></div>
+                    <div class="deco-pepper"></div>
+                </div>
+            </section>
+            
+            <!-- Right Panel - Form -->
+            <section class="form-panel" aria-label="Formulario de inicio de sesión">
+                <div class="form-container">
+                    <!-- Form Header -->
+                    <header class="form-header">
+                        <div class="header-icon">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h2 class="form-title">Iniciar Sesión</h2>
+                        <p class="form-subtitle">Ingresa tus credenciales para continuar</p>
+                    </header>
+                    
+                    <!-- Error Message -->
+                    {% if error_message %}
+                    <div class="error-alert" role="alert" id="errorAlert">
+                        <div class="error-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error-content">
+                            <strong>Error de autenticación</strong>
+                            <p>{{ error_message }}</p>
+                        </div>
+                        <button type="button" class="error-close" aria-label="Cerrar alerta">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Login Form -->
+                    <form method="POST" action="{% url 'login' %}" class="login-form" id="loginForm" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Username Field -->
+                        <div class="input-group">
+                            <label for="username" class="input-label">
+                                <i class="fas fa-user"></i>
+                                Usuario
+                            </label>
+                            <div class="input-wrapper">
+                                <input 
+                                    type="text" 
+                                    id="username" 
+                                    name="username" 
+                                    class="form-input" 
+                                    placeholder="Ingresa tu usuario"
+                                    autocomplete="username"
+                                    required>
+                                <div class="input-focus-line"></div>
+                                <div class="input-icon-right">
+                                    <i class="fas fa-check-circle check-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Password Field -->
+                        <div class="input-group">
+                            <label for="password" class="input-label">
+                                <i class="fas fa-lock"></i>
+                                Contraseña
+                            </label>
+                            <div class="input-wrapper">
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    name="password" 
+                                    class="form-input" 
+                                    placeholder="Ingresa tu contraseña"
+                                    autocomplete="current-password"
+                                    required>
+                                <div class="input-focus-line"></div>
+                                <button type="button" class="password-toggle" id="passwordToggle" aria-label="Mostrar contraseña">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Remember Me & Forgot Password -->
+                        <div class="form-options">
+                            <label class="remember-me">
+                                <input type="checkbox" name="remember" id="remember">
+                                <span class="checkmark"></span>
+                                <span class="label-text">Recordarme</span>
+                            </label>
+                            <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <span class="btn-content">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Iniciar Sesión
+                            </span>
+                            <span class="btn-loader">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </span>
+                            <div class="btn-shine"></div>
+                        </button>
+                    </form>
+                    
+                    <!-- Divider -->
+                    <div class="form-divider">
+                        <span>o continúa con</span>
+                    </div>
+                    
+                    <!-- Social Login -->
+                    <div class="social-login">
+                        <button type="button" class="social-btn google" aria-label="Iniciar sesión con Google">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button type="button" class="social-btn facebook" aria-label="Iniciar sesión con Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button type="button" class="social-btn apple" aria-label="Iniciar sesión con Apple">
+                            <i class="fab fa-apple"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Register Link -->
+                    <footer class="form-footer">
+                        <p>¿No tienes una cuenta? 
+                            <a href="{% url 'register' %}" class="register-link">
+                                Regístrate aquí
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </p>
+                    </footer>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginContainer = document.getElementById('loginContainer');
+            const passwordToggle = document.getElementById('passwordToggle');
+            const passwordInput = document.getElementById('password');
+            const submitBtn = document.getElementById('submitBtn');
+            const loginForm = document.getElementById('loginForm');
+            const inputs = document.querySelectorAll('.form-input');
+            
+            // Entrance animation
+            setTimeout(() => {
+                loginContainer.classList.add('visible');
+            }, 100);
+            
+            // Password visibility toggle
+            if (passwordToggle && passwordInput) {
+                passwordToggle.addEventListener('click', function() {
+                    const type = passwordInput.type === 'password' ? 'text' : 'password';
+                    passwordInput.type = type;
+                    this.querySelector('i').classList.toggle('fa-eye');
+                    this.querySelector('i').classList.toggle('fa-eye-slash');
+                });
+            }
+            
+            // Input animations and validation
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.closest('.input-group').classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.closest('.input-group').classList.remove('focused');
+                    }
+                    // Simple validation feedback
+                    if (this.value && this.checkValidity()) {
+                        this.closest('.input-group').classList.add('valid');
+                    } else {
+                        this.closest('.input-group').classList.remove('valid');
+                    }
+                });
+                
+                input.addEventListener('input', function() {
+                    if (this.value && this.checkValidity()) {
+                        this.closest('.input-group').classList.add('valid');
+                    } else {
+                        this.closest('.input-group').classList.remove('valid');
+                    }
+                });
+            });
+            
+            // Form submission with loading state
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    submitBtn.classList.add('loading');
+                    submitBtn.disabled = true;
+                });
+            }
+            
+            // Error alert dismissal
+            const errorClose = document.querySelector('.error-close');
+            const errorAlert = document.getElementById('errorAlert');
+            if (errorClose && errorAlert) {
+                errorClose.addEventListener('click', function() {
+                    errorAlert.classList.add('dismissed');
+                    setTimeout(() => errorAlert.remove(), 300);
+                });
+                
+                // Auto-dismiss after 5 seconds
+                setTimeout(() => {
+                    if (errorAlert) {
+                        errorAlert.classList.add('dismissed');
+                        setTimeout(() => errorAlert.remove(), 300);
+                    }
+                }, 5000);
+            }
+            
+            // Parallax effect on mouse move
+            document.addEventListener('mousemove', function(e) {
+                const shapes = document.querySelectorAll('.floating-shape');
+                const moveX = (e.clientX / window.innerWidth - 0.5) * 30;
+                const moveY = (e.clientY / window.innerHeight - 0.5) * 30;
+                
+                shapes.forEach((shape, index) => {
+                    const speed = (index + 1) * 0.5;
+                    shape.style.transform = `translate(${moveX * speed}px, ${moveY * speed}px)`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
