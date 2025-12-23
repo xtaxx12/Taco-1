@@ -4,83 +4,159 @@
 {% block title %}Inicio - Taco Home{% endblock %}
 
 {% block body %}
-<!-- Hero Section - Juicy & Fresh -->
-<section class="hero" id="home">
-   <div class="hero-content">
-      <div class="hero-text" data-aos="fade-right" data-aos-delay="150">
-         <h1>¡Sabor <span>Auténtico</span>, Pasión En Cada Bocado!</h1>
-         <p class="hero-subtitle">Descubre la auténtica experiencia TEX-MEX con ingredientes frescos, 
-            recetas tradicionales y el sabor que conquistará tu paladar. 
-            <strong>¡Cada taco cuenta una historia!</strong></p>
-         
-         <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
-            <div class="stat-item">
-               <i class="fas fa-award stat-icon"></i>
-               <span class="stat-number">15+</span>
-               <span class="stat-label">Años de Experiencia</span>
+<!-- Hero Section - Premium Tex-Mex Experience -->
+<section class="hero-premium" id="home">
+   <!-- Background Layers -->
+   <div class="hero-background">
+      <div class="hero-bg-image"></div>
+      <div class="hero-bg-overlay"></div>
+      <div class="hero-bg-texture"></div>
+   </div>
+
+   <!-- Glowing Orbs -->
+   <div class="hero-floating-elements">
+      <div class="hero-glow-orb orb-orange"></div>
+      <div class="hero-glow-orb orb-yellow"></div>
+      <div class="hero-glow-orb orb-red"></div>
+
+      <!-- Floating Ingredient Icons -->
+      <div class="floating-ingredient ingredient-1">🌶️</div>
+      <div class="floating-ingredient ingredient-2">🧀</div>
+      <div class="floating-ingredient ingredient-3">🥑</div>
+      <div class="floating-ingredient ingredient-4">🍅</div>
+      <div class="floating-ingredient ingredient-5">🌮</div>
+   </div>
+
+   <!-- Hero Content -->
+   <div class="hero-content-wrapper">
+      <!-- Left - Text Content -->
+      <div class="hero-text-content" data-aos="fade-up">
+         <!-- Badge -->
+         <div class="hero-badge">
+            <i class="fas fa-fire"></i>
+            <span>Auténtico Tex-Mex desde 2011</span>
+         </div>
+
+         <!-- Main Title -->
+         <h1 class="hero-title">
+            <span class="text-highlight">¡Sabor Auténtico,</span><br>
+            <span class="text-white">Pasión En Cada Bocado!</span>
+         </h1>
+
+         <!-- Subtitle -->
+         <p class="hero-subtitle">
+            Descubre la auténtica experiencia <strong>TEX-MEX</strong> con ingredientes
+            frescos, recetas tradicionales y el sabor que conquistará tu paladar.
+            <strong>¡Cada taco cuenta una historia!</strong>
+         </p>
+
+         <!-- Stats Cards - Glassmorphism -->
+         <div class="hero-stats-container">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+               <div class="stat-card-icon green">
+                  <i class="fas fa-award"></i>
+               </div>
+               <span class="stat-card-number">15+</span>
+               <span class="stat-card-label">Años de Experiencia</span>
             </div>
-            <div class="stat-item">
-               <i class="fas fa-book-open stat-icon"></i>
-               <span class="stat-number">50+</span>
-               <span class="stat-label">Recetas Únicas</span>
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+               <div class="stat-card-icon yellow">
+                  <i class="fas fa-book-open"></i>
+               </div>
+               <span class="stat-card-number">50+</span>
+               <span class="stat-card-label">Recetas Únicas</span>
             </div>
-            <div class="stat-item">
-               <i class="fas fa-smile-beam stat-icon"></i>
-               <span class="stat-number">1000+</span>
-               <span class="stat-label">Clientes Felices</span>
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+               <div class="stat-card-icon red">
+                  <i class="fas fa-heart"></i>
+               </div>
+               <span class="stat-card-number">1000+</span>
+               <span class="stat-card-label">Clientes Felices</span>
             </div>
          </div>
-         
-         <div class="hero-buttons" data-aos="fade-up" data-aos-delay="600">
-            <a href="{% url 'menu' %}" class="btn-primary btn-lg">
-               <i class="fas fa-utensils"></i> ¡PEDIR AHORA!
+
+         <!-- CTA Buttons -->
+         <div class="hero-cta-buttons">
+            <a href="{% url 'menu' %}" class="btn-hero-primary">
+               <i class="fas fa-utensils"></i>
+               ¡PEDIR AHORA!
             </a>
-            <a href="#contact" class="btn-secondary btn-lg">
-               <i class="fas fa-map-marker-alt"></i> Visítanos
+            <a href="#contact" class="btn-hero-secondary">
+               <i class="fas fa-map-marker-alt"></i>
+               Visítanos
             </a>
          </div>
       </div>
-      
-      <div class="hero-image" data-aos="fade-left" data-aos-delay="300">
-         <div class="image-container">
-            <img src="{% static 'images/logo.png' %}" alt="Taco Home - Deliciosos tacos mexicanos" loading="lazy">
-            <div class="image-decoration"></div>
+
+      <!-- Right - Mascot Visual -->
+      <div class="hero-visual-content" data-aos="fade-left" data-aos-delay="300">
+         <div class="mascot-container">
+            <!-- Glow Ring -->
+            <div class="mascot-glow-ring"></div>
+
+            <!-- Decorative Circle -->
+            <div class="mascot-circle"></div>
+
+            <!-- Mascot Image -->
+            <img src="{% static 'images/logo.png' %}" alt="Taco Home - Mascota del restaurante" class="mascot-image"
+               loading="lazy">
+
+            <!-- Floating Items Around Mascot -->
+            <div class="mascot-floating-items">
+               <div class="floating-item">🌮</div>
+               <div class="floating-item">🌶️</div>
+               <div class="floating-item">🥑</div>
+               <div class="floating-item">🧀</div>
+            </div>
          </div>
       </div>
    </div>
+
+   <!-- Scroll Indicator -->
+   <div class="scroll-indicator">
+      <div class="mouse">
+         <div class="wheel"></div>
+      </div>
+      <span>Scroll</span>
+   </div>
 </section>
+
 
 <!-- Features Section -->
 <section class="features">
    <div class="container">
       <div class="section-header" data-aos="fade-up">
          <h2 class="section-title">¿Por qué elegir Taco Home?</h2>
-         <p class="section-subtitle">Nos comprometemos a ofrecerte la mejor experiencia culinaria con ingredientes de calidad y un servicio excepcional</p>
+         <p class="section-subtitle">Nos comprometemos a ofrecerte la mejor experiencia culinaria con ingredientes de
+            calidad y un servicio excepcional</p>
       </div>
-      
+
       <div class="features-grid">
          <div class="feature-card" data-aos="fade-up" data-aos-delay="150">
             <div class="feature-icon">
                <i class="fas fa-leaf"></i>
             </div>
             <h3>Ingredientes Frescos</h3>
-            <p>Seleccionamos cuidadosamente los ingredientes más frescos del mercado local para garantizar el mejor sabor en cada bocado.</p>
+            <p>Seleccionamos cuidadosamente los ingredientes más frescos del mercado local para garantizar el mejor
+               sabor en cada bocado.</p>
          </div>
-         
+
          <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
             <div class="feature-icon">
                <i class="fas fa-clock"></i>
             </div>
             <h3>Servicio Rápido</h3>
-            <p>Nuestro equipo especializado prepara tus platillos favoritos en tiempo récord, manteniendo siempre los más altos estándares de calidad.</p>
+            <p>Nuestro equipo especializado prepara tus platillos favoritos en tiempo récord, manteniendo siempre los
+               más altos estándares de calidad.</p>
          </div>
-         
+
          <div class="feature-card" data-aos="fade-up" data-aos-delay="450">
             <div class="feature-icon">
                <i class="fas fa-heart"></i>
             </div>
             <h3>Recetas Tradicionales</h3>
-            <p>Cada receta ha sido perfeccionada durante generaciones, combinando técnicas tradicionales con un toque moderno único.</p>
+            <p>Cada receta ha sido perfeccionada durante generaciones, combinando técnicas tradicionales con un toque
+               moderno único.</p>
          </div>
       </div>
    </div>
@@ -91,7 +167,8 @@
    <div class="container">
       <div class="section-header" data-aos="fade-up">
          <h2 class="section-title">Contáctanos</h2>
-         <p class="section-subtitle">¿Tienes alguna pregunta o quieres hacer una reserva? ¡Estamos aquí para ayudarte!</p>
+         <p class="section-subtitle">¿Tienes alguna pregunta o quieres hacer una reserva? ¡Estamos aquí para ayudarte!
+         </p>
       </div>
 
       <div class="contact-content">
@@ -144,27 +221,25 @@
                {% csrf_token %}
                <div class="form-group">
                   <label for="nombre">Nombre completo *</label>
-                  <input type="text" id="nombre" name="nombre" required 
-                         class="form-control" placeholder="Tu nombre completo">
+                  <input type="text" id="nombre" name="nombre" required class="form-control"
+                     placeholder="Tu nombre completo">
                </div>
 
                <div class="form-group">
                   <label for="email">Email *</label>
-                  <input type="email" id="email" name="email" required 
-                         class="form-control" placeholder="tu@email.com">
+                  <input type="email" id="email" name="email" required class="form-control" placeholder="tu@email.com">
                </div>
 
                <div class="form-group">
                   <label for="telefono">Teléfono</label>
-                  <input type="tel" id="telefono" name="telefono" 
-                         class="form-control" placeholder="Tu número de teléfono">
+                  <input type="tel" id="telefono" name="telefono" class="form-control"
+                     placeholder="Tu número de teléfono">
                </div>
 
                <div class="form-group">
                   <label for="mensaje">Mensaje *</label>
-                  <textarea id="mensaje" name="mensaje" required 
-                            class="form-control" rows="5" 
-                            placeholder="Escribe tu mensaje aquí..."></textarea>
+                  <textarea id="mensaje" name="mensaje" required class="form-control" rows="5"
+                     placeholder="Escribe tu mensaje aquí..."></textarea>
                </div>
 
                <button type="submit" class="btn-primary submit-btn">
@@ -180,13 +255,10 @@
 
       <!-- Map Section -->
       <div class="map-container" data-aos="fade-up" data-aos-delay="450">
-         <iframe class="map" 
-                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.372412896262!2d-79.96455462985229!3d-3.2573287336768844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x90330e576f7f3e61%3A0x37c2cbbcc470f431!2sTaco%20Home!5e0!3m2!1ses!2sec!4v1698289429235!5m2!1ses!2sec" 
-                 style="border:0;" 
-                 allowfullscreen="" 
-                 loading="lazy" 
-                 referrerpolicy="no-referrer-when-downgrade"
-                 title="Ubicación de Taco Home">
+         <iframe class="map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.372412896262!2d-79.96455462985229!3d-3.2573287336768844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x90330e576f7f3e61%3A0x37c2cbbcc470f431!2sTaco%20Home!5e0!3m2!1ses!2sec!4v1698289429235!5m2!1ses!2sec"
+            style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación de Taco Home">
          </iframe>
       </div>
    </div>
@@ -196,32 +268,32 @@
 
 {% block extra_js %}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-   const contactForm = document.getElementById('contactForm');
-   const submitBtn = contactForm.querySelector('.submit-btn');
-   const btnText = submitBtn.querySelector('span');
-   const btnSpinner = submitBtn.querySelector('.loading-spinner');
+   document.addEventListener('DOMContentLoaded', function () {
+      const contactForm = document.getElementById('contactForm');
+      const submitBtn = contactForm.querySelector('.submit-btn');
+      const btnText = submitBtn.querySelector('span');
+      const btnSpinner = submitBtn.querySelector('.loading-spinner');
 
-   contactForm.addEventListener('submit', function(e) {
-      // Show loading state
-      submitBtn.disabled = true;
-      btnText.style.display = 'none';
-      btnSpinner.style.display = 'inline-block';
-   });
+      contactForm.addEventListener('submit', function (e) {
+         // Show loading state
+         submitBtn.disabled = true;
+         btnText.style.display = 'none';
+         btnSpinner.style.display = 'inline-block';
+      });
 
-   // Smooth scroll for anchor links
-   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-         e.preventDefault();
-         const target = document.querySelector(this.getAttribute('href'));
-         if (target) {
-            target.scrollIntoView({
-               behavior: 'smooth',
-               block: 'start'
-            });
-         }
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+         anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+               target.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+               });
+            }
+         });
       });
    });
-});
 </script>
 {% endblock %}

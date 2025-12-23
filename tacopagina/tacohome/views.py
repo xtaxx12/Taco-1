@@ -35,7 +35,7 @@ def register(request):
     else:
         form = RegistrationForm()
     
-    return render(request, 'pagina/register.html', {'form': form})
+    return render(request, 'pagina/register_redesigned.html', {'form': form})
 
 
 def index(request):

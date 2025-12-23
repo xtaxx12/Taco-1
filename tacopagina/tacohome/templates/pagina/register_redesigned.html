@@ -1,0 +1,448 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Cuenta - Taco Home | Únete a la Familia Tex-Mex</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Crea tu cuenta en Taco Home y disfruta de los mejores platillos Tex-Mex. Registro rápido y sencillo.">
+
+    <!-- Icons and Fonts -->
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/style-register-modern.css' %}">
+</head>
+
+<body>
+    <!-- Animated Background Particles -->
+    <div class="background-effects">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <!-- Back to Home Button -->
+    <a href="{% url 'index' %}" class="back-home" id="backHomeBtn">
+        <i class="fas fa-arrow-left"></i>
+        <span>Volver al Inicio</span>
+    </a>
+
+    <!-- Main Register Container -->
+    <main class="register-wrapper">
+        <div class="register-container" id="registerContainer">
+
+            <!-- Left Panel - Form -->
+            <section class="form-panel" aria-label="Formulario de registro">
+                <div class="form-container">
+                    <!-- Form Header -->
+                    <header class="form-header">
+                        <div class="header-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h1 class="form-title">Crear Cuenta</h1>
+                        <p class="form-subtitle">Únete a la familia Taco Home</p>
+                    </header>
+
+                    <!-- Django Messages -->
+                    {% if messages %}
+                    <div class="messages-container">
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert" id="alert-{{ forloop.counter }}">
+                            <div class="alert-icon">
+                                {% if message.tags == 'success' %}
+                                <i class="fas fa-check-circle"></i>
+                                {% elif message.tags == 'error' %}
+                                <i class="fas fa-exclamation-circle"></i>
+                                {% else %}
+                                <i class="fas fa-info-circle"></i>
+                                {% endif %}
+                            </div>
+                            <div class="alert-content">
+                                <p>{{ message }}</p>
+                            </div>
+                            <button type="button" class="alert-close" aria-label="Cerrar alerta">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Register Form -->
+                    <form method="POST" action="{% url 'register' %}" class="register-form" id="registerForm"
+                        novalidate>
+                        {% csrf_token %}
+
+                        <!-- Username Field -->
+                        <div class="input-group">
+                            <label for="username" class="input-label">
+                                <i class="fas fa-user"></i>
+                                Usuario
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="text" id="username" name="username" class="form-input"
+                                    placeholder="Elige un nombre de usuario" autocomplete="username" minlength="3"
+                                    maxlength="30" pattern="^[a-zA-Z0-9_]+$" required>
+                                <div class="input-focus-line"></div>
+                                <div class="input-icon-right">
+                                    <i class="fas fa-check-circle check-icon"></i>
+                                </div>
+                            </div>
+                            <span class="input-hint">Solo letras, números y guiones bajos (3-30 caracteres)</span>
+                        </div>
+
+                        <!-- Email Field -->
+                        <div class="input-group">
+                            <label for="email" class="input-label">
+                                <i class="fas fa-envelope"></i>
+                                Email <span class="optional">(opcional)</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="email" id="email" name="email" class="form-input"
+                                    placeholder="tu@email.com" autocomplete="email">
+                                <div class="input-focus-line"></div>
+                                <div class="input-icon-right">
+                                    <i class="fas fa-check-circle check-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="input-group">
+                            <label for="password1" class="input-label">
+                                <i class="fas fa-lock"></i>
+                                Contraseña
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="password" id="password1" name="password1" class="form-input"
+                                    placeholder="Crea una contraseña segura" autocomplete="new-password" minlength="8"
+                                    required>
+                                <div class="input-focus-line"></div>
+                                <button type="button" class="password-toggle" data-target="password1"
+                                    aria-label="Mostrar contraseña">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <!-- Password Strength Indicator -->
+                            <div class="password-strength" id="passwordStrength">
+                                <div class="strength-bar">
+                                    <div class="strength-fill" id="strengthFill"></div>
+                                </div>
+                                <span class="strength-text" id="strengthText">Ingresa tu contraseña</span>
+                            </div>
+                        </div>
+
+                        <!-- Confirm Password Field -->
+                        <div class="input-group">
+                            <label for="password2" class="input-label">
+                                <i class="fas fa-lock"></i>
+                                Confirmar Contraseña
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="password" id="password2" name="password2" class="form-input"
+                                    placeholder="Repite tu contraseña" autocomplete="new-password" minlength="8"
+                                    required>
+                                <div class="input-focus-line"></div>
+                                <button type="button" class="password-toggle" data-target="password2"
+                                    aria-label="Mostrar contraseña">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <span class="match-indicator" id="matchIndicator">
+                                <i class="fas fa-check-circle"></i>
+                                Las contraseñas coinciden
+                            </span>
+                        </div>
+
+                        <!-- Terms Checkbox -->
+                        <div class="terms-group">
+                            <label class="terms-checkbox">
+                                <input type="checkbox" name="terms" id="terms" required>
+                                <span class="checkmark"></span>
+                                <span class="terms-text">
+                                    Acepto los <a href="#" class="terms-link">Términos de Servicio</a>
+                                    y la <a href="#" class="terms-link">Política de Privacidad</a>
+                                </span>
+                            </label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <span class="btn-content">
+                                <i class="fas fa-user-plus"></i>
+                                Crear mi Cuenta
+                            </span>
+                            <span class="btn-loader">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </span>
+                            <div class="btn-shine"></div>
+                        </button>
+                    </form>
+
+                    <!-- Login Link -->
+                    <footer class="form-footer">
+                        <p>¿Ya tienes una cuenta?
+                            <a href="{% url 'login' %}" class="login-link">
+                                Inicia sesión aquí
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </p>
+                    </footer>
+                </div>
+            </section>
+
+            <!-- Right Panel - Branding -->
+            <section class="brand-panel" aria-label="Sección de marca Taco Home">
+                <div class="brand-overlay"></div>
+                <div class="brand-pattern"></div>
+
+                <div class="brand-content">
+                    <!-- Logo -->
+                    <div class="brand-logo">
+                        <img src="{% static 'images/logo.png' %}" alt="Taco Home Logo" class="logo-img">
+                    </div>
+
+                    <!-- Welcome Message -->
+                    <div class="brand-text">
+                        <h2 class="brand-title">
+                            <span class="welcome-line">¡Únete a</span>
+                            <span class="welcome-line accent">nuestra familia!</span>
+                        </h2>
+                        <p class="brand-description">
+                            Crea tu cuenta y descubre los sabores auténticos de la cocina
+                            <strong>TEX-MEX</strong>. Ordena fácil, rápido y delicioso.
+                        </p>
+                    </div>
+
+                    <!-- Benefits List -->
+                    <div class="brand-benefits">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <div class="benefit-text">
+                                <strong>Ofertas Exclusivas</strong>
+                                <span>Promociones solo para miembros</span>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <div class="benefit-text">
+                                <strong>Historial de Pedidos</strong>
+                                <span>Reordena tus favoritos fácilmente</span>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="benefit-text">
+                                <strong>Checkout Rápido</strong>
+                                <span>Guarda tus datos y ordena en segundos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Decorative Elements -->
+                <div class="food-decoration">
+                    <div class="deco-circle circle-1"></div>
+                    <div class="deco-circle circle-2"></div>
+                    <div class="deco-circle circle-3"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const registerContainer = document.getElementById('registerContainer');
+            const passwordToggles = document.querySelectorAll('.password-toggle');
+            const password1 = document.getElementById('password1');
+            const password2 = document.getElementById('password2');
+            const submitBtn = document.getElementById('submitBtn');
+            const registerForm = document.getElementById('registerForm');
+            const inputs = document.querySelectorAll('.form-input');
+            const strengthFill = document.getElementById('strengthFill');
+            const strengthText = document.getElementById('strengthText');
+            const matchIndicator = document.getElementById('matchIndicator');
+
+            // Entrance animation
+            setTimeout(() => {
+                registerContainer.classList.add('visible');
+            }, 100);
+
+            // Password visibility toggle
+            passwordToggles.forEach(toggle => {
+                toggle.addEventListener('click', function () {
+                    const targetId = this.getAttribute('data-target');
+                    const targetInput = document.getElementById(targetId);
+                    const type = targetInput.type === 'password' ? 'text' : 'password';
+                    targetInput.type = type;
+                    this.querySelector('i').classList.toggle('fa-eye');
+                    this.querySelector('i').classList.toggle('fa-eye-slash');
+                });
+            });
+
+            // Password strength checker
+            function checkPasswordStrength(password) {
+                let strength = 0;
+                let feedback = '';
+
+                if (password.length === 0) {
+                    return { strength: 0, text: 'Ingresa tu contraseña', color: '#9CA3AF' };
+                }
+
+                if (password.length >= 8) strength += 25;
+                if (password.match(/[a-z]/)) strength += 25;
+                if (password.match(/[A-Z]/)) strength += 25;
+                if (password.match(/[0-9]/)) strength += 15;
+                if (password.match(/[^a-zA-Z0-9]/)) strength += 10;
+
+                if (strength <= 25) {
+                    feedback = 'Muy débil';
+                    return { strength, text: feedback, color: '#EF4444' };
+                } else if (strength <= 50) {
+                    feedback = 'Débil';
+                    return { strength, text: feedback, color: '#F97316' };
+                } else if (strength <= 75) {
+                    feedback = 'Buena';
+                    return { strength, text: feedback, color: '#EAB308' };
+                } else {
+                    feedback = 'Excelente';
+                    return { strength, text: feedback, color: '#22C55E' };
+                }
+            }
+
+            if (password1) {
+                password1.addEventListener('input', function () {
+                    const result = checkPasswordStrength(this.value);
+                    strengthFill.style.width = result.strength + '%';
+                    strengthFill.style.backgroundColor = result.color;
+                    strengthText.textContent = result.text;
+                    strengthText.style.color = result.color;
+
+                    // Check match if password2 has value
+                    if (password2.value) {
+                        checkPasswordMatch();
+                    }
+                });
+            }
+
+            // Password match checker
+            function checkPasswordMatch() {
+                if (password1.value && password2.value) {
+                    if (password1.value === password2.value) {
+                        matchIndicator.classList.add('match');
+                        matchIndicator.classList.remove('no-match');
+                        matchIndicator.innerHTML = '<i class="fas fa-check-circle"></i> Las contraseñas coinciden';
+                    } else {
+                        matchIndicator.classList.add('no-match');
+                        matchIndicator.classList.remove('match');
+                        matchIndicator.innerHTML = '<i class="fas fa-times-circle"></i> Las contraseñas no coinciden';
+                    }
+                } else {
+                    matchIndicator.classList.remove('match', 'no-match');
+                }
+            }
+
+            if (password2) {
+                password2.addEventListener('input', checkPasswordMatch);
+            }
+
+            // Input animations and validation
+            inputs.forEach(input => {
+                input.addEventListener('focus', function () {
+                    this.closest('.input-group').classList.add('focused');
+                });
+
+                input.addEventListener('blur', function () {
+                    if (!this.value) {
+                        this.closest('.input-group').classList.remove('focused');
+                    }
+                    // Simple validation feedback
+                    if (this.value && this.checkValidity()) {
+                        this.closest('.input-group').classList.add('valid');
+                    } else {
+                        this.closest('.input-group').classList.remove('valid');
+                    }
+                });
+
+                input.addEventListener('input', function () {
+                    if (this.value && this.checkValidity()) {
+                        this.closest('.input-group').classList.add('valid');
+                    } else {
+                        this.closest('.input-group').classList.remove('valid');
+                    }
+                });
+            });
+
+            // Form submission with loading state
+            if (registerForm) {
+                registerForm.addEventListener('submit', function (e) {
+                    // Check if passwords match
+                    if (password1.value !== password2.value) {
+                        e.preventDefault();
+                        matchIndicator.classList.add('no-match');
+                        matchIndicator.innerHTML = '<i class="fas fa-times-circle"></i> Las contraseñas no coinciden';
+                        password2.focus();
+                        return;
+                    }
+
+                    submitBtn.classList.add('loading');
+                    submitBtn.disabled = true;
+                });
+            }
+
+            // Alert dismissal
+            const alertCloses = document.querySelectorAll('.alert-close');
+            alertCloses.forEach(closeBtn => {
+                closeBtn.addEventListener('click', function () {
+                    const alert = this.closest('.alert');
+                    alert.classList.add('dismissed');
+                    setTimeout(() => alert.remove(), 300);
+                });
+            });
+
+            // Auto-dismiss alerts after 5 seconds
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    if (alert) {
+                        alert.classList.add('dismissed');
+                        setTimeout(() => alert.remove(), 300);
+                    }
+                }, 5000);
+            });
+
+            // Parallax effect on mouse move
+            document.addEventListener('mousemove', function (e) {
+                const shapes = document.querySelectorAll('.floating-shape');
+                const moveX = (e.clientX / window.innerWidth - 0.5) * 30;
+                const moveY = (e.clientY / window.innerHeight - 0.5) * 30;
+
+                shapes.forEach((shape, index) => {
+                    const speed = (index + 1) * 0.5;
+                    shape.style.transform = `translate(${moveX * speed}px, ${moveY * speed}px)`;
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
