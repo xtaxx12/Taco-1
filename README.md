@@ -246,17 +246,17 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 👥 Equipo
 
-- **Desarrollador Principal**: [Tu Nombre]
-- **Diseño UX/UI**: [Nombre del Diseñador]
-- **QA Testing**: [Nombre del Tester]
+- **Desarrollador Principal**: Joel Rojas
+- **Diseño UX/UI**: Joel Rojas
+- **QA Testing**: Joel Rojas]
 
 ## 📞 Soporte
 
 ¿Tienes preguntas o necesitas ayuda?
 
 - 📧 Email: tacohome2011@gmail.com
-- 📱 Teléfono: +593 963410295
-- 🌐 Website: [tu-website.com]
+- 📱 Teléfono: +593 968058769
+- 🌐 Website: [[tu-website.com]](https://i-portfolio-swart.vercel.app/)
 
 ## 🙏 Agradecimientos
 
